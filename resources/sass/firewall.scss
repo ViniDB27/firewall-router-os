@@ -1,0 +1,184 @@
+
+/*
+    Style Body
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15pt;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/*
+    End Style Body
+*/
+
+
+/*
+    Style Login
+*/
+
+.login-body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../image/lages-246-anos.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+}
+
+.login-box{
+    height: 670px;
+    background-color: rgba(255, 255, 255, .7);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.login-box form .min-text{
+    padding-left: 5px;
+}
+
+.login-box form button{
+    margin-top: 15px;
+    font-size: 18pt;
+}
+
+.login-box form a{
+    margin-left: 100px;
+}
+
+/*
+    End Style Login
+*/
+
+
+/*
+    Style Recover Password
+*/
+
+.recover-body{
+    width: 100%;
+    min-height: 500px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../image/lages-246-anos.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+}
+
+.recover-box{
+    height: 300px;
+    background-color: rgba(255, 255, 255, .7);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 137px;
+}
+
+.recover-box p{
+    font-size: 18pt;
+}
+
+.recover-box form button{
+    font-size: 16pt;
+}
+
+.recover-box form a{
+    margin-left: 100px;
+}
+
+/*
+    End Style Recover Password
+*/
+
+/*
+    Style main menu
+*/
+
+.main-menu{
+    font-size: 12pt;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.main-menu .icon-settings{
+    margin: 0 10px;
+}
+
+.main-menu a{
+    cursor: pointer;
+}
+
+.main-menu .dropdown-toggle::after{
+    color: white;
+}
+
+.icons-container{
+    display: flex;
+    align-items: center;
+}
+
+.icons-container .dropdown-toggle::after{
+    display: none;
+}
+
+.icons-container .dropdown-toggle::before{
+    display: none;
+}
+
+/*
+    End Style main menu
+*/
+
+/*
+    Style Registrations
+*/
+
+.container-forms {
+    margin-top: 20px;
+    width: 100%;
+
+}
+
+.container-forms h2{
+    padding-top: 5px;
+    font-size: 15pt;
+}
+
+.container-forms a{
+    cursor: pointer;
+}
+
+/*
+    End Style Registrations
+*/

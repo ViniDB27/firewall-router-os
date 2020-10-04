@@ -68478,8 +68478,8 @@ function RegTypeHost() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projetos\firewall-router-os\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\projetos\firewall-router-os\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\github\firewall-router-os\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\github\firewall-router-os\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

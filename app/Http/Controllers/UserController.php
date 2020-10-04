@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DomainController extends Controller
+class UserController.php extends Controller
 {
     /**
      * Display a listing of the resource.

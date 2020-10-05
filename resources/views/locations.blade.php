@@ -13,7 +13,7 @@
     </head>
     <body>
         <div id="main-navbar"><MainNavbar /></div>
-        <div id="locations"><Locations /></div>
+        <div id="locations"  ><Locations /></div>
         <script src="js/app.js"></script>
     </body>
 </html>

@@ -66256,9 +66256,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-function Locations() {
+function Locations(prop) {
   var _React$createElement;
 
+  console.log(prop);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "table table-sm table-hover table-striped table-responsive-sm"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66369,6 +66370,8 @@ function Locations() {
 /* harmony default export */ __webpack_exports__["default"] = (Locations);
 
 if (document.getElementById('locations')) {
+  //const element = getElementById('locations');
+  //const props = Object.assign({}, element.dataset);
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Locations, null), document.getElementById('locations'));
 }
 
@@ -68478,8 +68481,8 @@ function RegTypeHost() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\github\firewall-router-os\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\github\firewall-router-os\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\GitHub\firewall-router-os\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\GitHub\firewall-router-os\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

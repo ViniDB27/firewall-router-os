@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function Locations() {
+function Locations(prop) {
+
+
+
+    console.log(prop);
+
+
     return (
         <table className="table table-sm table-hover table-striped table-responsive-sm">
             <thead>
@@ -126,5 +132,10 @@ function Locations() {
 export default Locations;
 
 if (document.getElementById('locations')) {
+
+    //const element = getElementById('locations');
+
+    //const props = Object.assign({}, element.dataset);
+
     ReactDOM.render(<Locations />, document.getElementById('locations'));
 }

@@ -1,16 +1,31 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 
-function Locations(prop) {
+import api from './utils/axios'
 
+function Locations(){
 
+    const [locations, setLocations] = useState([]);
 
-    console.log(prop);
+    useEffect(()=>{
+
+        async function loadLocations(){
+
+            const response = await api.get("/locations");
+
+            setLocations(response.data)
+
+        }
+
+        loadLocations()
+    },[]);
+
 
 
     return (
-        <table className="table table-sm table-hover table-striped table-responsive-sm">
-            <thead>
+
+        <table className="container-fluid table table-sm table-hover table-striped table-responsive-sm">
+            <thead >
                 <tr>
                     <th>
                         <div className="form-check">
@@ -28,114 +43,38 @@ function Locations(prop) {
                 </tr>
             </thead>
             <tbody>
-
-                <tr>
-                    <td>
-                        <div className="form-check">
-                            <input className="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."/>
-                        </div>
-                    </td>
-                    <td>name</td>
-                    <td>address</td>
-                    <td>number</td>
-                    <td>district</td>
-                    <td>city</td>
-                    <td>zip_code</td>
-                    <td>uf</td>
-                    <td className="d-flex" >
-                        <a><i className="material-icons text-body icons-table mx-1" title="Editar" >create</i></a>
-                        <a><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div className="form-check">
-                            <input className="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."/>
-                        </div>
-                    </td>
-                    <td>name</td>
-                    <td>address</td>
-                    <td>number</td>
-                    <td>district</td>
-                    <td>city</td>
-                    <td>zip_code</td>
-                    <td>uf</td>
-                    <td className="d-flex" >
-                        <a><i className="material-icons text-body icons-table mx-1" title="Editar" >create</i></a>
-                        <a><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div className="form-check">
-                            <input className="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."/>
-                        </div>
-                    </td>
-                    <td>name</td>
-                    <td>address</td>
-                    <td>number</td>
-                    <td>district</td>
-                    <td>city</td>
-                    <td>zip_code</td>
-                    <td>uf</td>
-                    <td className="d-flex" >
-                        <a><i className="material-icons text-body icons-table mx-1" title="Editar" >create</i></a>
-                        <a><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div className="form-check">
-                            <input className="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."/>
-                        </div>
-                    </td>
-                    <td>name</td>
-                    <td>address</td>
-                    <td>number</td>
-                    <td>district</td>
-                    <td>city</td>
-                    <td>zip_code</td>
-                    <td>uf</td>
-                    <td className="d-flex" >
-                        <a><i className="material-icons text-body icons-table mx-1" title="Editar" >create</i></a>
-                        <a><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div className="form-check">
-                            <input className="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."/>
-                        </div>
-                    </td>
-                    <td>name</td>
-                    <td>address</td>
-                    <td>number</td>
-                    <td>district</td>
-                    <td>city</td>
-                    <td>zip_code</td>
-                    <td>uf</td>
-                    <td className="d-flex" >
-                        <a><i className="material-icons text-body icons-table mx-1" title="Editar" >create</i></a>
-                        <a><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
-                    </td>
-                </tr>
-
+                {
+                    locations.map(local=>(
+                        <tr>
+                            <td>
+                                <div className="form-check">
+                                    <input className="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."/>
+                                </div>
+                            </td>
+                            <td>{local.name}</td>
+                            <td>{local.address}</td>
+                            <td>{local.number}</td>
+                            <td>{local.district}</td>
+                            <td>{local.city}</td>
+                            <td>{local.zip_code}</td>
+                            <td>{local.uf}</td>
+                            <td className="d-flex" >
+                                <a><i className="material-icons text-body icons-table mx-1" title="Editar" >create</i></a>
+                                <a><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
+                            </td>
+                        </tr>
+                    ))
+                }
             </tbody>
         </table>
+
     );
 }
 
 export default Locations;
 
 if (document.getElementById('locations')) {
-
-    //const element = getElementById('locations');
-
-    //const props = Object.assign({}, element.dataset);
-
     ReactDOM.render(<Locations />, document.getElementById('locations'));
 }
+
+

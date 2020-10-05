@@ -14,6 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+Route::group(['namespace'=>'App\Http\Controllers'], function () {
+    Route::post('login', 'Api\AuthController@login');
+
+    Route::group(['middleware'=>'apiJwt'], function () {
+
+        Route::group(['prefix' => '/users'], function () {
+
+            Route::post('register', 'UserController@store');
+        });
+
+        Route::group(['prefix' => '/locations'], function () {
+
+            Route::get('/', 'LocationController@show');
+        });
+
+        Route::group(['prefix' => '/subnets'], function () {
+
+            Route::get('/', 'SubnetController@show');
+        });
+
+    });
+
 });
+
+

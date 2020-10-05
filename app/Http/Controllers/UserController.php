@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class LocationController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        return view('locations', );
+        //
     }
 
     /**
@@ -25,19 +25,33 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $local = Location::create([
-            "name"=> $request->input('name'),
-            "address" => $request->input('address'),
-            "number" => $request->input('number'),
-            "district" => $request->input('district'),
-            "city" => $request->input('city'),
-            "zip_code" => $request->input('zip_code'),
-            "uf" => $request->input('uf'),
-            "active" => $request->input('active'),
-            "user_id" => 1,
+        if($request->input('administrator')){
+            $adm = true;
+            $mod = false;
+            $vis = false;
+        }else if($request->input('moderator')){
+            $adm = false;
+            $mod = true;
+            $vis = false;
+        }else{
+            $adm = false;
+            $mod = false;
+            $vis = true;
+        }
+
+
+
+        $user = User::create([
+            'name'=>$request->input('name'),
+            'email'=>$request->input('email'),
+            'password'=>bcrypt($request->input('password')),
+            'administrator' => $adm,
+            'moderator' => $mod,
+            'visitant' => $vis,
+            'active' => $request->input('active')
         ]);
 
-        return response()->json(["message"=>"Local cadastrado com sucesso!", 'local'=>$local]);
+        return response()->json(["message"=>"Usuário cadastrado com sucesso!", 'user'=>$user]);
     }
 
     /**
@@ -46,11 +60,9 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $locations = Location::all();
-
-        return $locations;
+        //
     }
 
     /**

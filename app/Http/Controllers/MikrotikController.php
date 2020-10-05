@@ -13,7 +13,7 @@ class MikrotikController extends Controller
      */
     public function index()
     {
-        //
+        return view('mikrotiks');
     }
 
     /**

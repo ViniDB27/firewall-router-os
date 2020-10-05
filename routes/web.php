@@ -13,46 +13,68 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
-    return view('login');
+
+Route::group(['middleware' => 'web', 'namespace'=>'App\Http\Controllers'], function () {
+
+    Route::get('/', function () {
+        return redirect('/dashboard');
+    });
+
+    Route::group(['prefix' => ''], function () {
+
+        Route::get('/login', 'AuthContronller@indexLogin');
+
+        Route::get('/recover', 'AuthContronller@indexRevocer');
+    });
+
+    Route::group(['prefix' => '/dashboard'], function () {
+
+        Route::get('/', 'DashboardController@index');
+
+    });
+
+    Route::group(['prefix' => '/locations'], function () {
+
+        Route::get('/', 'LocationController@index');
+
+    });
+
+    Route::group(['prefix' => '/subnets'], function () {
+
+        Route::get('/', 'LocationController@index');
+
+    });
+
+    Route::group(['prefix' => '/mikrotiks'], function () {
+
+        Route::get('/', 'MikrotikController@index');
+
+    });
+
+    Route::group(['prefix' => '/hosts'], function () {
+
+        Route::get('/', 'HostController@index');
+
+    });
+
+    Route::group(['prefix' => '/registrations'], function () {
+
+        Route::get('/', 'RegistrationController@index');
+
+    });
+
+    Route::group(['prefix' => '/host-type'], function () {
+
+        Route::get('/', 'TypeHostController@index');
+
+    });
+
+    Route::group(['prefix' => '/domains'], function () {
+
+        Route::get('/', 'DomainController@index');
+
+    });
+
 });
 
-Route::get('/recover', function () {
-    return view('recover');
-});
 
-Route::get('/', function () {
-    return redirect('/dashboard');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
-Route::get('/locations', function () {
-    return view('locations');
-});
-
-Route::get('/subnets', function () {
-    return view('subnets');
-});
-
-Route::get('/mikrotiks', function () {
-    return view('mikrotiks');
-});
-
-Route::get('/hosts', function () {
-    return view('hosts');
-});
-
-Route::get('/registrations', function () {
-    return view('registrations');
-});
-
-Route::get('/host-type', function () {
-    return view('typehost');
-});
-
-Route::get('/domains', function () {
-    return view('domain');
-});

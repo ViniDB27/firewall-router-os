@@ -13,7 +13,7 @@ class SubnetController extends Controller
      */
     public function index()
     {
-        //
+        return view('subnets');
     }
 
     /**

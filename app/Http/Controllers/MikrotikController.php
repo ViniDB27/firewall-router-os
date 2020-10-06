@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mikrotik;
 use Illuminate\Http\Request;
 
 class MikrotikController extends Controller
@@ -24,7 +25,28 @@ class MikrotikController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->user_request->administrator){
+
+            $mikrotik = Mikrotik::create([
+                "name"=> $request->input('name'),
+                "subnet_id "=> $request->input('subnet_id '),
+                "ip_wan "=> $request->input('ip_wan '),
+                "ip_lan "=> $request->input('ip_lan '),
+                "gateway"=> $request->input('gateway'),
+                "netmask_bits "=> $request->input('netmask_bits '),
+                "dns1 " => $request->input('dns1 '),
+                "dns2" => $request->input('dns2'),
+                "username" => $request->input('username'),
+                "password" => $request->input('password'),
+                "active" => $request->input('active'),
+                "user_id" => $request->user_request->id,
+            ]);
+
+            return response()->json(["message"=>"Mirkotik cadastrado com sucesso!", 'mikrotik'=>$mikrotik]);
+
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
     }
 
     /**
@@ -33,9 +55,11 @@ class MikrotikController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $mikrotik = Mikrotik::all();
+
+        return $mikrotik;
     }
 
     /**
@@ -47,7 +71,31 @@ class MikrotikController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request->user_request->administrator){
+
+            $mikrotik = Mikrotik::all()->where('id',$id)->first();
+
+            if(!$mikrotik) return response()->json(["message"=>"Não temos nem um registro nesse id"], 404);
+
+            $mikrotik->name = $request->input('name');
+            $mikrotik->subnet_id  = $request->input('subnet_id ');
+            $mikrotik->ip_wan  = $request->input('ip_wan ');
+            $mikrotik->ip_lan  = $request->input('ip_lan ');
+            $mikrotik->gateway = $request->input('gateway');
+            $mikrotik->netmask_bits  = $request->input('netmask_bits ');
+            $mikrotik->dns1   = $request->input('dns1 ');
+            $mikrotik->dns2  = $request->input('dns2');
+            $mikrotik->username  = $request->input('username');
+            $mikrotik->password  = $request->input('password');
+            $mikrotik->active  = $request->input('active');
+            $mikrotik->user_id  = $request->user_request->id;
+
+
+            return response()->json(["message"=>"Mirkotik alterado com sucesso!", 'mikrotik'=>$mikrotik]);
+
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
     }
 
     /**
@@ -56,8 +104,19 @@ class MikrotikController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if($request->user_request->administrator){
+
+            $mikrotik = Mikrotik::all()->where('id', $id)->first();
+
+            if(!$mikrotik) return response()->json(["message"=>"Não temos nem um registro nesse id"], 404);
+
+            $mikrotik->delete();
+
+            return response()->json(["message"=>"Mikrotik Excluida com sucesso!"]);
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
     }
 }

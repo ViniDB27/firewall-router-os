@@ -25,19 +25,26 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $local = Location::create([
-            "name"=> $request->input('name'),
-            "address" => $request->input('address'),
-            "number" => $request->input('number'),
-            "district" => $request->input('district'),
-            "city" => $request->input('city'),
-            "zip_code" => $request->input('zip_code'),
-            "uf" => $request->input('uf'),
-            "active" => $request->input('active'),
-            "user_id" => 1,
-        ]);
+        if($request->user_request->administrator){
 
-        return response()->json(["message"=>"Local cadastrado com sucesso!", 'local'=>$local]);
+            $local = Location::create([
+                "name"=> $request->input('name'),
+                "address" => $request->input('address'),
+                "number" => $request->input('number'),
+                "district" => $request->input('district'),
+                "city" => $request->input('city'),
+                "zip_code" => $request->input('zip_code'),
+                "uf" => $request->input('uf'),
+                "active" => $request->input('active'),
+                "user_id" => $request->user_request->id,
+            ]);
+
+            return response()->json(["message"=>"Local cadastrado com sucesso!", 'local'=>$local]);
+
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
+
     }
 
     /**
@@ -62,7 +69,27 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request->user_request->administrator){
+
+            $local = Location::all()->where('id', $id)->first();
+
+            if(!$local) return response()->json(["message"=>"Não temos nem um registro nesse id"], 404);
+
+            $local->name = $request->input('name');
+            $local->address = $request->input('address');
+            $local->number = $request->input('number');
+            $local->district = $request->input('district');
+            $local->city = $request->input('city');
+            $local->zip_code = $request->input('zip_code');
+            $local->uf = $request->input('uf');
+            $local->active = $request->input('active');
+            $local->user_id = $request->user_request->id;
+
+            return response()->json(["message"=>"Local alterado com sucesso!", 'local'=>$local]);
+
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
     }
 
     /**
@@ -71,8 +98,21 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if($request->user_request->administrator){
+
+            $local = Location::all()->where('id', $id)->first();
+
+            if(!$local) return response()->json(["message"=>"Não temos nem um registro nesse id"], 404);
+
+            $local->delete();
+
+            return response()->json(["message"=>"Local excluido com sucesso!"]);
+
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
     }
+
 }

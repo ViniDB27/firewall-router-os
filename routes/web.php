@@ -41,7 +41,7 @@ Route::group(['middleware' => 'web', 'namespace'=>'App\Http\Controllers'], funct
 
     Route::group(['prefix' => '/subnets'], function () {
 
-        Route::get('/', 'LocationController@index');
+        Route::get('/', 'SubnetController@index');
 
     });
 

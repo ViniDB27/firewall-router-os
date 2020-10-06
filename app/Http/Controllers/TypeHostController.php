@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HostType;
 use Illuminate\Http\Request;
 
 class TypeHostController extends Controller
@@ -24,7 +25,18 @@ class TypeHostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->user_request->administrator){
+
+            $type_host = HostType::create([
+                "name" => $request->input('name'),
+                "user_id" => $request->user_request->id,
+            ]);
+
+            return response()->json(["message"=>"Host type cadastrado com sucesso!", 'host_type'=>$type_host]);
+
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
     }
 
     /**
@@ -33,9 +45,11 @@ class TypeHostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $type_host = HostType::all();
+
+        return $type_host;
     }
 
     /**
@@ -47,7 +61,21 @@ class TypeHostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request->user_request->administrator){
+
+            $type_host = HostType::all()->where('id',$id)->first();
+
+            if(!$type_host) return response()->json(["message"=>"Não temos nem um registro nesse id"], 404);
+
+            $type_host->name = $request->input('name');
+            $type_host->user_id = $request->user_request->id;
+
+
+            return response()->json(["message"=>"Host type alterado com sucesso!", 'host_type'=>$type_host]);
+
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
     }
 
     /**
@@ -56,8 +84,19 @@ class TypeHostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if($request->user_request->administrator){
+
+            $type_host = HostType::all()->where('id', $id)->first();
+
+            if(!$type_host) return response()->json(["message"=>"Não temos nem um registro nesse id"], 404);
+
+            $type_host->delete();
+
+            return response()->json(["message"=>"Host type Excluida com sucesso!"]);
+        }else{
+            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        }
     }
 }

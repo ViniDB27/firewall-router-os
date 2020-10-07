@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 
 import api from './utils/axios'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 function Locations(){
 
@@ -13,8 +14,23 @@ function Locations(){
 
             const response = await api.get("/locations");
 
-            setLocations(response.data)
+            console.log(response)
 
+            if(response.status === 200){
+                setLocations(response.data)
+            }else{
+
+                const { value: accept } = await Swal.fire({
+
+                    title: `Ops...`,
+                    text: "Sua cessão inspirou!",
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Voltar ao Login!'
+
+                })
+
+            }
         }
 
         loadLocations()
@@ -45,7 +61,7 @@ function Locations(){
             <tbody>
                 {
                     locations.map(local=>(
-                        <tr>
+                        <tr key={local.id}>
                             <td>
                                 <div className="form-check">
                                     <input className="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."/>

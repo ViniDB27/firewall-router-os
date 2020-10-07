@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
+use App\Models\Netmask;
 use App\Models\Subnet;
 use Illuminate\Http\Request;
 
@@ -52,9 +54,22 @@ class SubnetController extends Controller
      */
     public function show()
     {
+        $response = array();
         $subnet = Subnet::all();
 
-        return $subnet;
+        foreach ($subnet as $sub) {
+            $local = Location::all()->where('id', $sub->local_id)->first();
+
+            $netmask = Netmask::all()->where('bits', $sub->netmask_bits)->first();
+
+            array_push($response, [
+                "subnet" => $sub,
+                "local" => $local,
+                "netmask" => $netmask
+            ]);
+        }
+
+        return $response;
     }
 
     /**

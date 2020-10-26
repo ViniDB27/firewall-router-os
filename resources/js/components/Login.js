@@ -19,6 +19,8 @@ function Login() {
             password
         })
 
+        console.log(response)
+
         if(response.status == 200){
             localStorage.setItem('token', response.data.access_token);
             window.location.href = "/dashboard";

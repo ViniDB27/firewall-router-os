@@ -18,7 +18,7 @@ Route::group(['middleware' => 'web', 'namespace'=>'App\Http\Controllers'], funct
 
 
 
-    Route::group(['prefix' => ''], function () {
+    Route::group([], function () {
 
         Route::get('/login', 'AuthContronller@indexLogin');
 

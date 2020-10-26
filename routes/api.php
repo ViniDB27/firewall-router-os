@@ -16,15 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['namespace'=>'App\Http\Controllers'], function () {
+Route::group(['prefix' => '/v1','namespace'=>'App\Http\Controllers'], function () {
     Route::post('login', 'Api\AuthController@login');
+    Route::post('/register', 'UserController@store');
 
     Route::group(['middleware'=>'apiJwt'], function () {
 
         Route::group(['prefix' => '/users'], function () {
 
-            Route::get('register', 'UserController@show');
-            Route::post('register', 'UserController@store');
+            Route::get('/info', 'UserController@show');
         });
 
         Route::group(['prefix' => '/locations'], function () {

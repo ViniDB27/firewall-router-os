@@ -26,7 +26,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        if($request->user_request->administrator){
+        //if($request->user_request->administrator){
 
             if($request->input('administrator')){
                 $adm = true;
@@ -55,9 +55,9 @@ class UserController extends Controller
             ]);
 
             return response()->json(["message"=>"Usuário cadastrado com sucesso!", 'user'=>$user]);
-        }else{
-            return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
-        }
+        //}else{
+           // return response()->json(["message"=>"Usuário não tem permissão para essa ação"], 405);
+        //}
 
     }
 

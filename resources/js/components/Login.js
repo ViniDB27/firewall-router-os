@@ -23,6 +23,7 @@ function Login() {
 
         if(response.status == 200){
             localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('user', response.data.user);
             window.location.href = "/dashboard";
         }
     }

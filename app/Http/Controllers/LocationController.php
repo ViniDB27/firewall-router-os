@@ -27,6 +27,17 @@ class LocationController extends Controller
     {
         if($request->user_request->administrator){
 
+            $request->validate([
+                'name'=>'required|max:100',
+                'address'=>'required',
+                'number'=>'required',
+                'district'=>'required',
+                'city'=>'required',
+                'zip_code'=>'required',
+                'uf'=>'required',
+                'active'=>'required'
+            ]);
+
             $local = Location::create([
                 "name"=> $request->input('name'),
                 "address" => $request->input('address'),

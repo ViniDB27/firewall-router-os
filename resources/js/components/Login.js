@@ -5,6 +5,7 @@ import api from './utils/axios'
 //assets import
 import logoLages from '../../image/logo-lages-sc-sem-fundo.webp'
 
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 function Login() {
 
@@ -17,9 +18,15 @@ function Login() {
         const response = await api.post('/login',{
             email,
             password
-        })
+        }).catch( e => {
+            console.log(e)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Dados invalidos',
+            })
 
-        console.log(response)
+        })
 
         if(response.status == 200){
             localStorage.setItem('token', response.data.access_token);

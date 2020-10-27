@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 
 import api from './utils/axios'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 function Subnets() {
 
@@ -11,7 +12,42 @@ function Subnets() {
 
         async function loadSubnets(){
 
-            const response = await api.get("/subnets");
+            const response = await api.get("/subnets")
+            .catch(async error=>{
+
+                let errors = { ... error}
+
+                if(errors.response.status == 401){
+
+                    const { value: accept } = await  Swal.fire({
+
+                        title: `Ops...`,
+                        text: "Sua cessão inspirou!",
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Voltar ao Login!'
+
+                    })
+
+                    window.location.href = "/login";
+
+                }else{
+
+                    console.log(errors)
+
+                    Swal.fire({
+
+                        title: `Ops...`,
+                        text: error,
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+
+                    })
+                }
+
+
+            })
 
             if(response.status === 200){
                 setSubnets(response.data)

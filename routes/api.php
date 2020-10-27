@@ -27,6 +27,8 @@ Route::group(['prefix' => '/v1','namespace'=>'App\Http\Controllers'], function (
             Route::get('/info', 'UserController@show');
         });
 
+        Route::get('/netmask','NetMaskController@show');
+
         Route::group(['prefix' => '/locations'], function () {
 
             Route::get('/', 'LocationController@show');
@@ -41,6 +43,11 @@ Route::group(['prefix' => '/v1','namespace'=>'App\Http\Controllers'], function (
             Route::post('/', 'SubnetController@store');
             Route::put('/{id}', 'SubnetController@update');
             Route::delete('/{id}', 'SubnetController@destroy');
+        });
+
+        Route::group(['prefix' => '/dns'], function () {
+            Route::get('/', 'DnsController@show');
+            Route::put('/', 'DnsController@update');
         });
 
         Route::group(['prefix' => '/mikrotiks'], function () {

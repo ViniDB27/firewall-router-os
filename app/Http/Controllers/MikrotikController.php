@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mikrotik;
+use App\Models\Netmask;
+use App\Models\Subnet;
 use Illuminate\Http\Request;
 
 class MikrotikController extends Controller
@@ -57,9 +59,19 @@ class MikrotikController extends Controller
      */
     public function show()
     {
+        $newArray = [];
         $mikrotik = Mikrotik::all();
 
-        return $mikrotik;
+        foreach ($mikrotik as $mk) {
+            $mk->subnet = Subnet::all()->where('id',$mk->subnet_id)->first();
+            $mk->netmask = Netmask::all()->where('bits', $mk->netmask_bits)->first();
+
+            array_push($newArray,$mk);
+
+        }
+
+
+        return $newArray;
     }
 
     /**

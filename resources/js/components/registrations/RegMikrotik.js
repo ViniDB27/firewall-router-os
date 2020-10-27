@@ -1,6 +1,113 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import api from '../utils/axios'
+import IsIp from '../utils/IsIp'
+
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 function RegMikrotik() {
+
+    const [allSubrede, setAllSubrede] = useState([])
+
+    useEffect(()=>{
+        async function loadDependences(){
+
+            const response =  await api.get('/dns')
+            .catch(async error=>{
+
+                let errors = { ... error}
+
+                if(errors.response.status == 401){
+
+                    const { value: accept } = await  Swal.fire({
+
+                        title: `Ops...`,
+                        text: "Sua cessão inspirou!",
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Voltar ao Login!'
+
+                    })
+
+                    window.location.href = "/login";
+
+                }else{
+
+                    console.log(errors)
+
+                    Swal.fire({
+
+                        title: `Ops...`,
+                        text: error,
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+
+                    })
+                }
+
+
+            })
+
+            if(response.status == 200){
+                let allDns = [ ... response.data]
+
+                allDns.map(dns=>{
+                    if(dns.id == 1){
+                        setDns1(dns.dns)
+                    }else{
+                        setDns2(dns.dns)
+                    }
+                })
+
+            }
+
+            await api.get('/subnets')
+            .then(responseSub=>{
+                setAllSubrede([ ... responseSub.data])
+            })
+            .catch(async error=>{
+
+                let errors = { ... error}
+
+                if(errors.response.status == 401){
+
+                    const { value: accept } = await  Swal.fire({
+
+                        title: `Ops...`,
+                        text: "Sua cessão inspirou!",
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Voltar ao Login!'
+
+                    })
+
+                    window.location.href = "/login";
+
+                }else{
+
+                    console.log(errors)
+
+                    Swal.fire({
+
+                        title: `Ops...`,
+                        text: error,
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+
+                    })
+                }
+
+
+            })
+
+
+
+
+        }
+
+        loadDependences()
+    },[])
 
     const [name, setName] =useState("")
     const [subrede, setSubrede] = useState("")
@@ -25,6 +132,9 @@ function RegMikrotik() {
                 <label htmlFor="subnet-mk" className="text-dark" >Subrede</label>
                 <select type="text" className="form-control" id="subnet-mk" value={subrede} onChange={e=>{setSubrede(e.target.value)}} >
                     <option >Escolha uma subrede...</option>
+                    {allSubrede.map(sub=>(
+                        <option value={sub.subnet.id} key={sub.subnet.id} >{sub.subnet.name} - {sub.subnet.ip}</option>
+                    ))}
                 </select>
             </div>
 

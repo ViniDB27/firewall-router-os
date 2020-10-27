@@ -29,6 +29,15 @@ class SubnetController extends Controller
     {
         if($request->user_request->administrator){
 
+            $request->validate([
+                'name'=>'required|max:100',
+                'ip'=>'required|unique:App\Models\Subnet,ip',
+                'netmask_bits'=>'required',
+                'local_id'=>'required',
+                'access'=>'required',
+                'active'=>'required',
+            ]);
+
             $subnet = Subnet::create([
                 "name"=> $request->input('name'),
                 "ip" => $request->input('ip'),

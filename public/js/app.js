@@ -66495,7 +66495,7 @@ if (false) {} else {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v9.17.2
+* sweetalert2 v10.8.1
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -66766,7 +66766,7 @@ if (false) {} else {
    * Show a one-time console warning about deprecated params/methods
    */
 
-  var warnAboutDepreation = function warnAboutDepreation(deprecatedParam, useInstead) {
+  var warnAboutDeprecation = function warnAboutDeprecation(deprecatedParam, useInstead) {
     warnOnce("\"".concat(deprecatedParam, "\" is deprecated and will be removed in the next major release. Please use \"").concat(useInstead, "\" instead."));
   };
   /**
@@ -66834,7 +66834,7 @@ if (false) {} else {
 
     return result;
   };
-  var swalClasses = prefix(['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'toast-column', 'show', 'hide', 'close', 'title', 'header', 'content', 'html-container', 'actions', 'confirm', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error']);
+  var swalClasses = prefix(['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'toast-column', 'show', 'hide', 'close', 'title', 'header', 'content', 'html-container', 'actions', 'confirm', 'deny', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'input-label', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loader', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error']);
   var iconTypes = prefix(['success', 'warning', 'info', 'question', 'error']);
 
   var getContainer = function getContainer() {
@@ -66882,6 +66882,15 @@ if (false) {} else {
   };
   var getConfirmButton = function getConfirmButton() {
     return elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.confirm));
+  };
+  var getDenyButton = function getDenyButton() {
+    return elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.deny));
+  };
+  var getInputLabel = function getInputLabel() {
+    return elementByClass(swalClasses['input-label']);
+  };
+  var getLoader = function getLoader() {
+    return elementBySelector(".".concat(swalClasses.loader));
   };
   var getCancelButton = function getCancelButton() {
     return elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.cancel));
@@ -67062,12 +67071,17 @@ if (false) {} else {
   };
   var show = function show(elem) {
     var display = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'flex';
-    elem.style.opacity = '';
     elem.style.display = display;
   };
   var hide = function hide(elem) {
-    elem.style.opacity = '';
     elem.style.display = 'none';
+  };
+  var setStyle = function setStyle(parent, selector, property, value) {
+    var el = parent.querySelector(selector);
+
+    if (el) {
+      el.style[property] = value;
+    }
   };
   var toggle = function toggle(elem, condition, display) {
     condition ? show(elem, display) : hide(elem);
@@ -67125,7 +67139,7 @@ if (false) {} else {
     return typeof window === 'undefined' || typeof document === 'undefined';
   };
 
-  var sweetHTML = "\n <div aria-labelledby=\"".concat(swalClasses.title, "\" aria-describedby=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses.popup, "\" tabindex=\"-1\">\n   <div class=\"").concat(swalClasses.header, "\">\n     <ul class=\"").concat(swalClasses['progress-steps'], "\"></ul>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.error, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.question, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.warning, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.info, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.success, "\"></div>\n     <img class=\"").concat(swalClasses.image, "\" />\n     <h2 class=\"").concat(swalClasses.title, "\" id=\"").concat(swalClasses.title, "\"></h2>\n     <button type=\"button\" class=\"").concat(swalClasses.close, "\"></button>\n   </div>\n   <div class=\"").concat(swalClasses.content, "\">\n     <div id=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses['html-container'], "\"></div>\n     <input class=\"").concat(swalClasses.input, "\" />\n     <input type=\"file\" class=\"").concat(swalClasses.file, "\" />\n     <div class=\"").concat(swalClasses.range, "\">\n       <input type=\"range\" />\n       <output></output>\n     </div>\n     <select class=\"").concat(swalClasses.select, "\"></select>\n     <div class=\"").concat(swalClasses.radio, "\"></div>\n     <label for=\"").concat(swalClasses.checkbox, "\" class=\"").concat(swalClasses.checkbox, "\">\n       <input type=\"checkbox\" />\n       <span class=\"").concat(swalClasses.label, "\"></span>\n     </label>\n     <textarea class=\"").concat(swalClasses.textarea, "\"></textarea>\n     <div class=\"").concat(swalClasses['validation-message'], "\" id=\"").concat(swalClasses['validation-message'], "\"></div>\n   </div>\n   <div class=\"").concat(swalClasses.actions, "\">\n     <button type=\"button\" class=\"").concat(swalClasses.confirm, "\">OK</button>\n     <button type=\"button\" class=\"").concat(swalClasses.cancel, "\">Cancel</button>\n   </div>\n   <div class=\"").concat(swalClasses.footer, "\"></div>\n   <div class=\"").concat(swalClasses['timer-progress-bar-container'], "\">\n     <div class=\"").concat(swalClasses['timer-progress-bar'], "\"></div>\n   </div>\n </div>\n").replace(/(^|\n)\s*/g, '');
+  var sweetHTML = "\n <div aria-labelledby=\"".concat(swalClasses.title, "\" aria-describedby=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses.popup, "\" tabindex=\"-1\">\n   <div class=\"").concat(swalClasses.header, "\">\n     <ul class=\"").concat(swalClasses['progress-steps'], "\"></ul>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.error, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.question, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.warning, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.info, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.success, "\"></div>\n     <img class=\"").concat(swalClasses.image, "\" />\n     <h2 class=\"").concat(swalClasses.title, "\" id=\"").concat(swalClasses.title, "\"></h2>\n     <button type=\"button\" class=\"").concat(swalClasses.close, "\"></button>\n   </div>\n   <div class=\"").concat(swalClasses.content, "\">\n     <div id=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses['html-container'], "\"></div>\n     <input class=\"").concat(swalClasses.input, "\" />\n     <input type=\"file\" class=\"").concat(swalClasses.file, "\" />\n     <div class=\"").concat(swalClasses.range, "\">\n       <input type=\"range\" />\n       <output></output>\n     </div>\n     <select class=\"").concat(swalClasses.select, "\"></select>\n     <div class=\"").concat(swalClasses.radio, "\"></div>\n     <label for=\"").concat(swalClasses.checkbox, "\" class=\"").concat(swalClasses.checkbox, "\">\n       <input type=\"checkbox\" />\n       <span class=\"").concat(swalClasses.label, "\"></span>\n     </label>\n     <textarea class=\"").concat(swalClasses.textarea, "\"></textarea>\n     <div class=\"").concat(swalClasses['validation-message'], "\" id=\"").concat(swalClasses['validation-message'], "\"></div>\n   </div>\n   <div class=\"").concat(swalClasses.actions, "\">\n     <div class=\"").concat(swalClasses.loader, "\"></div>\n     <button type=\"button\" class=\"").concat(swalClasses.confirm, "\"></button>\n     <button type=\"button\" class=\"").concat(swalClasses.deny, "\"></button>\n     <button type=\"button\" class=\"").concat(swalClasses.cancel, "\"></button>\n   </div>\n   <div class=\"").concat(swalClasses.footer, "\"></div>\n   <div class=\"").concat(swalClasses['timer-progress-bar-container'], "\">\n     <div class=\"").concat(swalClasses['timer-progress-bar'], "\"></div>\n   </div>\n </div>\n").replace(/(^|\n)\s*/g, '');
 
   var resetOldContainer = function resetOldContainer() {
     var oldContainer = getContainer();
@@ -67293,49 +67307,51 @@ if (false) {} else {
 
   var renderActions = function renderActions(instance, params) {
     var actions = getActions();
+    var loader = getLoader();
     var confirmButton = getConfirmButton();
+    var denyButton = getDenyButton();
     var cancelButton = getCancelButton(); // Actions (buttons) wrapper
 
-    if (!params.showConfirmButton && !params.showCancelButton) {
+    if (!params.showConfirmButton && !params.showDenyButton && !params.showCancelButton) {
       hide(actions);
     } // Custom class
 
 
-    applyCustomClass(actions, params, 'actions'); // Render confirm button
+    applyCustomClass(actions, params, 'actions'); // Render buttons
 
-    renderButton(confirmButton, 'confirm', params); // render Cancel Button
-
+    renderButton(confirmButton, 'confirm', params);
+    renderButton(denyButton, 'deny', params);
     renderButton(cancelButton, 'cancel', params);
-
-    if (params.buttonsStyling) {
-      handleButtonsStyling(confirmButton, cancelButton, params);
-    } else {
-      removeClass([confirmButton, cancelButton], swalClasses.styled);
-      confirmButton.style.backgroundColor = confirmButton.style.borderLeftColor = confirmButton.style.borderRightColor = '';
-      cancelButton.style.backgroundColor = cancelButton.style.borderLeftColor = cancelButton.style.borderRightColor = '';
-    }
+    handleButtonsStyling(confirmButton, denyButton, cancelButton, params);
 
     if (params.reverseButtons) {
-      confirmButton.parentNode.insertBefore(cancelButton, confirmButton);
-    }
+      actions.insertBefore(cancelButton, loader);
+      actions.insertBefore(denyButton, loader);
+      actions.insertBefore(confirmButton, loader);
+    } // Loader
+
+
+    loader.innerHTML = params.loaderHtml;
+    applyCustomClass(loader, params, 'loader');
   };
 
-  function handleButtonsStyling(confirmButton, cancelButton, params) {
-    addClass([confirmButton, cancelButton], swalClasses.styled); // Buttons background colors
+  function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
+    if (!params.buttonsStyling) {
+      return removeClass([confirmButton, denyButton, cancelButton], swalClasses.styled);
+    }
+
+    addClass([confirmButton, denyButton, cancelButton], swalClasses.styled); // Buttons background colors
 
     if (params.confirmButtonColor) {
       confirmButton.style.backgroundColor = params.confirmButtonColor;
     }
 
+    if (params.denyButtonColor) {
+      denyButton.style.backgroundColor = params.denyButtonColor;
+    }
+
     if (params.cancelButtonColor) {
       cancelButton.style.backgroundColor = params.cancelButtonColor;
-    } // Loading state
-
-
-    if (!isLoading()) {
-      var confirmButtonBackgroundColor = window.getComputedStyle(confirmButton).getPropertyValue('background-color');
-      confirmButton.style.borderLeftColor = confirmButtonBackgroundColor;
-      confirmButton.style.borderRightColor = confirmButtonBackgroundColor;
     }
   }
 
@@ -67505,6 +67521,18 @@ if (false) {} else {
     }
   };
 
+  var setInputLabel = function setInputLabel(input, prependTo, params) {
+    if (params.inputLabel) {
+      input.id = swalClasses.input;
+      var label = document.createElement('label');
+      var labelClass = swalClasses['input-label'];
+      label.setAttribute('for', input.id);
+      label.className = labelClass;
+      label.innerText = params.inputLabel;
+      prependTo.insertAdjacentElement('beforebegin', label);
+    }
+  };
+
   var getInputContainer = function getInputContainer(inputType) {
     var inputClass = swalClasses[inputType] ? swalClasses[inputType] : swalClasses.input;
     return getChildByClass(getContent(), inputClass);
@@ -67519,12 +67547,14 @@ if (false) {} else {
       warn("Unexpected type of inputValue! Expected \"string\", \"number\" or \"Promise\", got \"".concat(_typeof(params.inputValue), "\""));
     }
 
+    setInputLabel(input, input, params);
     setInputPlaceholder(input, params);
     input.type = params.input;
     return input;
   };
 
   renderInputType.file = function (input, params) {
+    setInputLabel(input, input, params);
     setInputPlaceholder(input, params);
     return input;
   };
@@ -67535,6 +67565,7 @@ if (false) {} else {
     rangeInput.value = params.inputValue;
     rangeInput.type = params.input;
     rangeOutput.value = params.inputValue;
+    setInputLabel(rangeInput, range, params);
     return range;
   };
 
@@ -67550,6 +67581,7 @@ if (false) {} else {
       select.appendChild(placeholder);
     }
 
+    setInputLabel(select, select, params);
     return select;
   };
 
@@ -67571,6 +67603,7 @@ if (false) {} else {
   renderInputType.textarea = function (textarea, params) {
     textarea.value = params.inputValue;
     setInputPlaceholder(textarea, params);
+    setInputLabel(textarea, textarea, params);
 
     if ('MutationObserver' in window) {
       // #1699
@@ -67636,10 +67669,10 @@ if (false) {} else {
   };
 
   var renderIcon = function renderIcon(instance, params) {
-    var innerParams = privateProps.innerParams.get(instance); // if the give icon already rendered, apply the custom class without re-rendering the icon
+    var innerParams = privateProps.innerParams.get(instance); // if the given icon already rendered, apply the styling without re-rendering the icon
 
     if (innerParams && params.icon === innerParams.icon && getIcon()) {
-      applyCustomClass(getIcon(), params, 'icon');
+      applyStyles(getIcon(), params);
       return;
     }
 
@@ -67654,9 +67687,7 @@ if (false) {} else {
       show(icon); // Custom or default content
 
       setContent(icon, params);
-      adjustSuccessIconBackgoundColor(); // Custom class
-
-      applyCustomClass(icon, params, 'icon'); // Animate icon
+      applyStyles(icon, params); // Animate icon
 
       addClass(icon, params.showClass.icon);
     } else {
@@ -67670,6 +67701,15 @@ if (false) {} else {
     for (var i = 0; i < icons.length; i++) {
       hide(icons[i]);
     }
+  };
+
+  var applyStyles = function applyStyles(icon, params) {
+    // Icon color
+    setColor(icon, params); // Success icon background color
+
+    adjustSuccessIconBackgoundColor(); // Custom class
+
+    applyCustomClass(icon, params, 'icon');
   }; // Adjust success icon background color to match the popup background color
 
 
@@ -67700,6 +67740,22 @@ if (false) {} else {
       };
       setInnerHtml(icon, iconContent(defaultIconHtml[params.icon]));
     }
+  };
+
+  var setColor = function setColor(icon, params) {
+    if (!params.iconColor) {
+      return;
+    }
+
+    icon.style.color = params.iconColor;
+    icon.style.borderColor = params.iconColor;
+
+    for (var _i = 0, _arr = ['.swal2-success-line-tip', '.swal2-success-line-long', '.swal2-x-mark-line-left', '.swal2-x-mark-line-right']; _i < _arr.length; _i++) {
+      var sel = _arr[_i];
+      setStyle(icon, sel, 'backgroundColor', params.iconColor);
+    }
+
+    setStyle(icon, '.swal2-success-ring', 'borderColor', params.iconColor);
   };
 
   var iconContent = function iconContent(content) {
@@ -67917,8 +67973,10 @@ if (false) {} else {
     renderActions(instance, params);
     renderFooter(instance, params);
 
-    if (typeof params.onRender === 'function') {
-      params.onRender(getPopup());
+    if (typeof params.didRender === 'function') {
+      params.didRender(getPopup());
+    } else if (typeof params.onRender === 'function') {
+      params.onRender(getPopup()); // @deprecated
     }
   };
 
@@ -67935,6 +67993,13 @@ if (false) {} else {
 
   var clickConfirm = function clickConfirm() {
     return getConfirmButton() && getConfirmButton().click();
+  };
+  /*
+   * Global function to click 'Deny' button
+   */
+
+  var clickDeny = function clickDeny() {
+    return getDenyButton() && getDenyButton().click();
   };
   /*
    * Global function to click 'Cancel' button
@@ -68011,10 +68076,11 @@ if (false) {} else {
     popup = getPopup();
     var actions = getActions();
     var confirmButton = getConfirmButton();
+    var loader = getLoader();
     show(actions);
-    show(confirmButton, 'inline-block');
+    hide(confirmButton);
     addClass([popup, actions], swalClasses.loading);
-    confirmButton.disabled = true;
+    show(loader);
     popup.setAttribute('data-loading', true);
     popup.setAttribute('aria-busy', true);
     popup.focus();
@@ -68121,6 +68187,7 @@ if (false) {} else {
     html: '',
     footer: '',
     icon: undefined,
+    iconColor: undefined,
     iconHtml: undefined,
     toast: false,
     animation: true,
@@ -68144,21 +68211,28 @@ if (false) {} else {
     stopKeydownPropagation: true,
     keydownListenerCapture: false,
     showConfirmButton: true,
+    showDenyButton: false,
     showCancelButton: false,
     preConfirm: undefined,
+    preDeny: undefined,
     confirmButtonText: 'OK',
     confirmButtonAriaLabel: '',
     confirmButtonColor: undefined,
+    denyButtonText: 'No',
+    denyButtonAriaLabel: '',
+    denyButtonColor: undefined,
     cancelButtonText: 'Cancel',
     cancelButtonAriaLabel: '',
     cancelButtonColor: undefined,
     buttonsStyling: true,
     reverseButtons: false,
     focusConfirm: true,
+    focusDeny: false,
     focusCancel: false,
     showCloseButton: false,
     closeButtonHtml: '&times;',
     closeButtonAriaLabel: 'Close this dialog',
+    loaderHtml: '',
     showLoaderOnConfirm: false,
     imageUrl: undefined,
     imageWidth: undefined,
@@ -68171,11 +68245,13 @@ if (false) {} else {
     background: undefined,
     input: undefined,
     inputPlaceholder: '',
+    inputLabel: '',
     inputValue: '',
     inputOptions: {},
     inputAutoTrim: true,
     inputAttributes: {},
     inputValidator: undefined,
+    returnInputValueOnDeny: false,
     validationMessage: undefined,
     grow: false,
     position: 'center',
@@ -68184,17 +68260,29 @@ if (false) {} else {
     progressStepsDistance: undefined,
     onBeforeOpen: undefined,
     onOpen: undefined,
+    willOpen: undefined,
+    didOpen: undefined,
     onRender: undefined,
+    didRender: undefined,
     onClose: undefined,
     onAfterClose: undefined,
+    willClose: undefined,
+    didClose: undefined,
     onDestroy: undefined,
+    didDestroy: undefined,
     scrollbarPadding: true
   };
-  var updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'footer', 'hideClass', 'html', 'icon', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'onAfterClose', 'onClose', 'onDestroy', 'progressSteps', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'text', 'title', 'titleText'];
+  var updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'onAfterClose', 'onClose', 'onDestroy', 'progressSteps', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'willClose'];
   var deprecatedParams = {
-    animation: 'showClass" and "hideClass'
+    animation: 'showClass" and "hideClass',
+    onBeforeOpen: 'willOpen',
+    onOpen: 'didOpen',
+    onRender: 'didRender',
+    onClose: 'willClose',
+    onAfterClose: 'didClose',
+    onDestroy: 'didDestroy'
   };
-  var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusCancel', 'heightAuto', 'keydownListenerCapture'];
+  var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusDeny', 'focusCancel', 'heightAuto', 'keydownListenerCapture'];
   /**
    * Is valid parameter
    * @param {String} paramName
@@ -68234,7 +68322,7 @@ if (false) {} else {
 
   var checkIfParamIsDeprecated = function checkIfParamIsDeprecated(param) {
     if (isDeprecatedParameter(param)) {
-      warnAboutDepreation(param, isDeprecatedParameter(param));
+      warnAboutDeprecation(param, isDeprecatedParameter(param));
     }
   };
   /**
@@ -68265,6 +68353,7 @@ if (false) {} else {
     argsToParams: argsToParams,
     isVisible: isVisible$1,
     clickConfirm: clickConfirm,
+    clickDeny: clickDeny,
     clickCancel: clickCancel,
     getContainer: getContainer,
     getPopup: getPopup,
@@ -68274,10 +68363,13 @@ if (false) {} else {
     getImage: getImage,
     getIcon: getIcon,
     getIcons: getIcons,
+    getInputLabel: getInputLabel,
     getCloseButton: getCloseButton,
     getActions: getActions,
     getConfirmButton: getConfirmButton,
+    getDenyButton: getDenyButton,
     getCancelButton: getCancelButton,
+    getLoader: getLoader,
     getHeader: getHeader,
     getFooter: getFooter,
     getTimerProgressBar: getTimerProgressBar,
@@ -68313,19 +68405,19 @@ if (false) {} else {
     }
 
     var domCache = privateProps.domCache.get(this);
+    hide(domCache.loader);
 
-    if (!innerParams.showConfirmButton) {
-      hide(domCache.confirmButton);
-
-      if (!innerParams.showCancelButton) {
-        hide(domCache.actions);
-      }
+    if (innerParams.showConfirmButton) {
+      show(domCache.confirmButton, 'inline-block');
+    } else if (!innerParams.showConfirmButton && !innerParams.showCancelButton) {
+      hide(domCache.actions);
     }
 
     removeClass([domCache.popup, domCache.actions], swalClasses.loading);
     domCache.popup.removeAttribute('aria-busy');
     domCache.popup.removeAttribute('data-loading');
     domCache.confirmButton.disabled = false;
+    domCache.denyButton.disabled = false;
     domCache.cancelButton.disabled = false;
   }
 
@@ -68392,7 +68484,7 @@ if (false) {} else {
     var preventTouchMove;
 
     container.ontouchstart = function (e) {
-      preventTouchMove = shouldPreventTouchMove(e.target);
+      preventTouchMove = shouldPreventTouchMove(e);
     };
 
     container.ontouchmove = function (e) {
@@ -68403,8 +68495,14 @@ if (false) {} else {
     };
   };
 
-  var shouldPreventTouchMove = function shouldPreventTouchMove(target) {
+  var shouldPreventTouchMove = function shouldPreventTouchMove(event) {
+    var target = event.target;
     var container = getContainer();
+
+    if (event.touches && event.touches.length && event.touches[0].touchType === 'stylus') {
+      // #1786
+      return false;
+    }
 
     if (target === container) {
       return true;
@@ -68504,12 +68602,12 @@ if (false) {} else {
    * Instance method to close sweetAlert
    */
 
-  function removePopupAndResetState(instance, container, isToast$$1, onAfterClose) {
+  function removePopupAndResetState(instance, container, isToast$$1, didClose) {
     if (isToast$$1) {
-      triggerOnAfterCloseAndDispose(instance, onAfterClose);
+      triggerDidCloseAndDispose(instance, didClose);
     } else {
       restoreActiveElement().then(function () {
-        return triggerOnAfterCloseAndDispose(instance, onAfterClose);
+        return triggerDidCloseAndDispose(instance, didClose);
       });
       globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
         capture: globalState.keydownListenerCapture
@@ -68542,6 +68640,7 @@ if (false) {} else {
       return;
     }
 
+    resolveValue = prepareResolveValue(resolveValue);
     var innerParams = privateProps.innerParams.get(this);
 
     if (!innerParams || hasClass(popup, innerParams.hideClass.popup)) {
@@ -68554,43 +68653,56 @@ if (false) {} else {
     var backdrop = getContainer();
     removeClass(backdrop, innerParams.showClass.backdrop);
     addClass(backdrop, innerParams.hideClass.backdrop);
-    handlePopupAnimation(this, popup, innerParams);
+    handlePopupAnimation(this, popup, innerParams); // Resolve Swal promise
 
-    if (typeof resolveValue !== 'undefined') {
-      resolveValue.isDismissed = typeof resolveValue.dismiss !== 'undefined';
-      resolveValue.isConfirmed = typeof resolveValue.dismiss === 'undefined';
-    } else {
-      resolveValue = {
-        isDismissed: true,
-        isConfirmed: false
-      };
-    } // Resolve Swal promise
-
-
-    swalPromiseResolve(resolveValue || {});
+    swalPromiseResolve(resolveValue);
   }
+
+  var prepareResolveValue = function prepareResolveValue(resolveValue) {
+    // When user calls Swal.close()
+    if (typeof resolveValue === 'undefined') {
+      return {
+        isConfirmed: false,
+        isDenied: false,
+        isDismissed: true
+      };
+    }
+
+    return _extends({
+      isConfirmed: false,
+      isDenied: false,
+      isDismissed: false
+    }, resolveValue);
+  };
 
   var handlePopupAnimation = function handlePopupAnimation(instance, popup, innerParams) {
     var container = getContainer(); // If animation is supported, animate
 
     var animationIsSupported = animationEndEvent && hasCssAnimation(popup);
     var onClose = innerParams.onClose,
-        onAfterClose = innerParams.onAfterClose;
-
-    if (onClose !== null && typeof onClose === 'function') {
-      onClose(popup);
-    }
+        onAfterClose = innerParams.onAfterClose,
+        willClose = innerParams.willClose,
+        didClose = innerParams.didClose;
+    runDidClose(popup, willClose, onClose);
 
     if (animationIsSupported) {
-      animatePopup(instance, popup, container, onAfterClose);
+      animatePopup(instance, popup, container, didClose || onAfterClose);
     } else {
       // Otherwise, remove immediately
-      removePopupAndResetState(instance, container, isToast(), onAfterClose);
+      removePopupAndResetState(instance, container, isToast(), didClose || onAfterClose);
     }
   };
 
-  var animatePopup = function animatePopup(instance, popup, container, onAfterClose) {
-    globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, isToast(), onAfterClose);
+  var runDidClose = function runDidClose(popup, willClose, onClose) {
+    if (willClose !== null && typeof willClose === 'function') {
+      willClose(popup);
+    } else if (onClose !== null && typeof onClose === 'function') {
+      onClose(popup); // @deprecated
+    }
+  };
+
+  var animatePopup = function animatePopup(instance, popup, container, didClose) {
+    globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, isToast(), didClose);
     popup.addEventListener(animationEndEvent, function (e) {
       if (e.target === popup) {
         globalState.swalCloseEventFinishedCallback();
@@ -68599,10 +68711,10 @@ if (false) {} else {
     });
   };
 
-  var triggerOnAfterCloseAndDispose = function triggerOnAfterCloseAndDispose(instance, onAfterClose) {
+  var triggerDidCloseAndDispose = function triggerDidCloseAndDispose(instance, didClose) {
     setTimeout(function () {
-      if (typeof onAfterClose === 'function') {
-        onAfterClose();
+      if (typeof didClose === 'function') {
+        didClose();
       }
 
       instance._destroy();
@@ -68634,10 +68746,10 @@ if (false) {} else {
   }
 
   function enableButtons() {
-    setButtonsDisabled(this, ['confirmButton', 'cancelButton'], false);
+    setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], false);
   }
   function disableButtons() {
-    setButtonsDisabled(this, ['confirmButton', 'cancelButton'], true);
+    setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], true);
   }
   function enableInput() {
     return setInputDisabled(this.getInput(), false);
@@ -68648,10 +68760,14 @@ if (false) {} else {
 
   function showValidationMessage(error) {
     var domCache = privateProps.domCache.get(this);
+    var params = privateProps.innerParams.get(this);
     setInnerHtml(domCache.validationMessage, error);
-    var popupComputedStyle = window.getComputedStyle(domCache.popup);
-    domCache.validationMessage.style.marginLeft = "-".concat(popupComputedStyle.getPropertyValue('padding-left'));
-    domCache.validationMessage.style.marginRight = "-".concat(popupComputedStyle.getPropertyValue('padding-right'));
+    domCache.validationMessage.className = swalClasses['validation-message'];
+
+    if (params.customClass && params.customClass.validationMessage) {
+      addClass(domCache.validationMessage, params.customClass.validationMessage);
+    }
+
     show(domCache.validationMessage);
     var input = this.getInput();
 
@@ -68810,25 +68926,30 @@ if (false) {} else {
     init(params);
   }
 
+  var SHOW_CLASS_TIMEOUT = 10;
   /**
    * Open popup, add necessary classes and styles, fix scrollbar
    *
-   * @param {Array} params
+   * @param params
    */
 
   var openPopup = function openPopup(params) {
     var container = getContainer();
     var popup = getPopup();
 
-    if (typeof params.onBeforeOpen === 'function') {
-      params.onBeforeOpen(popup);
+    if (typeof params.willOpen === 'function') {
+      params.willOpen(popup);
+    } else if (typeof params.onBeforeOpen === 'function') {
+      params.onBeforeOpen(popup); // @deprecated
     }
 
     var bodyStyles = window.getComputedStyle(document.body);
     var initialBodyOverflow = bodyStyles.overflowY;
     addClasses$1(container, popup, params); // scrolling is 'hidden' until animation is done, after that 'auto'
 
-    setScrollingVisibility(container, popup);
+    setTimeout(function () {
+      setScrollingVisibility(container, popup);
+    }, SHOW_CLASS_TIMEOUT);
 
     if (isModal()) {
       fixScrollContainer(container, params.scrollbarPadding, initialBodyOverflow);
@@ -68839,16 +68960,23 @@ if (false) {} else {
       globalState.previousActiveElement = document.activeElement;
     }
 
-    if (typeof params.onOpen === 'function') {
-      setTimeout(function () {
-        return params.onOpen(popup);
-      });
-    }
-
+    runDidOpen(popup, params);
     removeClass(container, swalClasses['no-transition']);
   };
 
-  function swalOpenAnimationFinished(event) {
+  var runDidOpen = function runDidOpen(popup, params) {
+    if (typeof params.didOpen === 'function') {
+      setTimeout(function () {
+        return params.didOpen(popup);
+      });
+    } else if (typeof params.onOpen === 'function') {
+      setTimeout(function () {
+        return params.onOpen(popup);
+      }); // @deprecated
+    }
+  };
+
+  var swalOpenAnimationFinished = function swalOpenAnimationFinished(event) {
     var popup = getPopup();
 
     if (event.target !== popup) {
@@ -68858,7 +68986,7 @@ if (false) {} else {
     var container = getContainer();
     popup.removeEventListener(animationEndEvent, swalOpenAnimationFinished);
     container.style.overflowY = 'auto';
-  }
+  };
 
   var setScrollingVisibility = function setScrollingVisibility(container, popup) {
     if (animationEndEvent && hasCssAnimation(popup)) {
@@ -68884,10 +69012,17 @@ if (false) {} else {
   };
 
   var addClasses$1 = function addClasses(container, popup, params) {
-    addClass(container, params.showClass.backdrop);
-    show(popup); // Animate popup right after showing it
+    addClass(container, params.showClass.backdrop); // the workaround with setting/unsetting opacity is needed for #2019 and 2059
 
-    addClass(popup, params.showClass.popup);
+    popup.style.setProperty('opacity', '0', 'important');
+    show(popup);
+    setTimeout(function () {
+      // Animate popup right after showing it
+      addClass(popup, params.showClass.popup); // and remove the opacity workaround
+
+      popup.style.removeProperty('opacity');
+    }, SHOW_CLASS_TIMEOUT); // 10ms in order to fix #2062
+
     addClass([document.documentElement, document.body], swalClasses.shown);
 
     if (params.heightAuto && params.backdrop && !params.toast) {
@@ -69081,9 +69216,18 @@ if (false) {} else {
     instance.disableButtons();
 
     if (innerParams.input) {
-      handleConfirmWithInput(instance, innerParams);
+      handleConfirmOrDenyWithInput(instance, innerParams, 'confirm');
     } else {
       confirm(instance, innerParams, true);
+    }
+  };
+  var handleDenyButtonClick = function handleDenyButtonClick(instance, innerParams) {
+    instance.disableButtons();
+
+    if (innerParams.returnInputValueOnDeny) {
+      handleConfirmOrDenyWithInput(instance, innerParams, 'deny');
+    } else {
+      deny(instance, innerParams, false);
     }
   };
   var handleCancelButtonClick = function handleCancelButtonClick(instance, dismissWith) {
@@ -69091,34 +69235,66 @@ if (false) {} else {
     dismissWith(DismissReason.cancel);
   };
 
-  var handleConfirmWithInput = function handleConfirmWithInput(instance, innerParams) {
+  var handleConfirmOrDenyWithInput = function handleConfirmOrDenyWithInput(instance, innerParams, type
+  /* type is either 'confirm' or 'deny' */
+  ) {
     var inputValue = getInputValue(instance, innerParams);
 
     if (innerParams.inputValidator) {
-      instance.disableInput();
-      var validationPromise = Promise.resolve().then(function () {
-        return asPromise(innerParams.inputValidator(inputValue, innerParams.validationMessage));
-      });
-      validationPromise.then(function (validationMessage) {
-        instance.enableButtons();
-        instance.enableInput();
-
-        if (validationMessage) {
-          instance.showValidationMessage(validationMessage);
-        } else {
-          confirm(instance, innerParams, inputValue);
-        }
-      });
+      handleInputValidator(instance, innerParams, inputValue);
     } else if (!instance.getInput().checkValidity()) {
       instance.enableButtons();
       instance.showValidationMessage(innerParams.validationMessage);
+    } else if (type === 'deny') {
+      deny(instance, innerParams, inputValue);
     } else {
       confirm(instance, innerParams, inputValue);
     }
   };
 
+  var handleInputValidator = function handleInputValidator(instance, innerParams, inputValue) {
+    instance.disableInput();
+    var validationPromise = Promise.resolve().then(function () {
+      return asPromise(innerParams.inputValidator(inputValue, innerParams.validationMessage));
+    });
+    validationPromise.then(function (validationMessage) {
+      instance.enableButtons();
+      instance.enableInput();
+
+      if (validationMessage) {
+        instance.showValidationMessage(validationMessage);
+      } else {
+        confirm(instance, innerParams, inputValue);
+      }
+    });
+  };
+
+  var deny = function deny(instance, innerParams, value) {
+    if (innerParams.preDeny) {
+      var preDenyPromise = Promise.resolve().then(function () {
+        return asPromise(innerParams.preDeny(value, innerParams.validationMessage));
+      });
+      preDenyPromise.then(function (preDenyValue) {
+        if (preDenyValue === false) {
+          instance.hideLoading();
+        } else {
+          instance.closePopup({
+            isDenied: true,
+            value: typeof preDenyValue === 'undefined' ? value : preDenyValue
+          });
+        }
+      });
+    } else {
+      instance.closePopup({
+        isDenied: true,
+        value: value
+      });
+    }
+  };
+
   var succeedWith = function succeedWith(instance, value) {
     instance.closePopup({
+      isConfirmed: true,
       value: value
     });
   };
@@ -69185,7 +69361,9 @@ if (false) {} else {
 
     getPopup().focus();
   };
-  var arrowKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Left', 'Right', 'Up', 'Down' // IE11
+  var arrowKeysNextButton = ['ArrowRight', 'ArrowDown', 'Right', 'Down' // IE11
+  ];
+  var arrowKeysPreviousButton = ['ArrowLeft', 'ArrowUp', 'Left', 'Up' // IE11
   ];
   var escKeys = ['Escape', 'Esc' // IE11
   ];
@@ -69202,8 +69380,8 @@ if (false) {} else {
       handleEnter(instance, e, innerParams); // TAB
     } else if (e.key === 'Tab') {
       handleTab(e, innerParams); // ARROWS - switch focus between buttons
-    } else if (arrowKeys.indexOf(e.key) !== -1) {
-      handleArrows(); // ESC
+    } else if ([].concat(arrowKeysNextButton, arrowKeysPreviousButton).indexOf(e.key) !== -1) {
+      handleArrows(e.key); // ESC
     } else if (escKeys.indexOf(e.key) !== -1) {
       handleEsc(e, innerParams, dismissWith);
     }
@@ -69249,14 +69427,20 @@ if (false) {} else {
     e.preventDefault();
   };
 
-  var handleArrows = function handleArrows() {
+  var handleArrows = function handleArrows(key) {
     var confirmButton = getConfirmButton();
-    var cancelButton = getCancelButton(); // focus Cancel button if Confirm button is currently focused
+    var denyButton = getDenyButton();
+    var cancelButton = getCancelButton();
 
-    if (document.activeElement === confirmButton && isVisible(cancelButton)) {
-      cancelButton.focus(); // and vice versa
-    } else if (document.activeElement === cancelButton && isVisible(confirmButton)) {
-      confirmButton.focus();
+    if (!([confirmButton, denyButton, cancelButton].indexOf(document.activeElement) !== -1)) {
+      return;
+    }
+
+    var sibling = arrowKeysNextButton.indexOf(key) !== -1 ? 'nextElementSibling' : 'previousElementSibling';
+    var buttonToFocus = document.activeElement[sibling];
+
+    if (buttonToFocus) {
+      buttonToFocus.focus();
     }
   };
 
@@ -69287,7 +69471,7 @@ if (false) {} else {
     domCache.popup.onclick = function () {
       var innerParams = privateProps.innerParams.get(instance);
 
-      if (innerParams.showConfirmButton || innerParams.showCancelButton || innerParams.showCloseButton || innerParams.input) {
+      if (innerParams.showConfirmButton || innerParams.showDenyButton || innerParams.showCancelButton || innerParams.showCloseButton || innerParams.input) {
         return;
       }
 
@@ -69388,6 +69572,7 @@ if (false) {} else {
       // functions to handle all closings/dismissals
       var dismissWith = function dismissWith(dismiss) {
         instance.closePopup({
+          isDismissed: true,
           dismiss: dismiss
         });
       };
@@ -69396,6 +69581,10 @@ if (false) {} else {
 
       domCache.confirmButton.onclick = function () {
         return handleConfirmButtonClick(instance, innerParams);
+      };
+
+      domCache.denyButton.onclick = function () {
+        return handleDenyButtonClick(instance, innerParams);
       };
 
       domCache.cancelButton.onclick = function () {
@@ -69433,7 +69622,9 @@ if (false) {} else {
       content: getContent(),
       actions: getActions(),
       confirmButton: getConfirmButton(),
+      denyButton: getDenyButton(),
       cancelButton: getCancelButton(),
+      loader: getLoader(),
       closeButton: getCloseButton(),
       validationMessage: getValidationMessage(),
       progressSteps: getProgressSteps()
@@ -69473,15 +69664,28 @@ if (false) {} else {
       return blurActiveElement();
     }
 
+    if (!focusButton(domCache, innerParams)) {
+      setFocus(innerParams, -1, 1);
+    }
+  };
+
+  var focusButton = function focusButton(domCache, innerParams) {
+    if (innerParams.focusDeny && isVisible(domCache.denyButton)) {
+      domCache.denyButton.focus();
+      return true;
+    }
+
     if (innerParams.focusCancel && isVisible(domCache.cancelButton)) {
-      return domCache.cancelButton.focus();
+      domCache.cancelButton.focus();
+      return true;
     }
 
     if (innerParams.focusConfirm && isVisible(domCache.confirmButton)) {
-      return domCache.confirmButton.focus();
+      domCache.confirmButton.focus();
+      return true;
     }
 
-    setFocus(innerParams, -1, 1);
+    return false;
   };
 
   var blurActiveElement = function blurActiveElement() {
@@ -69508,7 +69712,7 @@ if (false) {} else {
       if (Swal.isUpdatableParameter(param)) {
         validUpdatableParams[param] = params[param];
       } else {
-        warn("Invalid parameter to update: \"".concat(param, "\". Updatable params are listed here: https://github.com/sweetalert2/sweetalert2/blob/master/src/utils/params.js"));
+        warn("Invalid parameter to update: \"".concat(param, "\". Updatable params are listed here: https://github.com/sweetalert2/sweetalert2/blob/master/src/utils/params.js\n\nIf you think this parameter should be updatable, request it here: https://github.com/sweetalert2/sweetalert2/issues/new?template=02_feature_request.md"));
       }
     });
 
@@ -69545,12 +69749,17 @@ if (false) {} else {
       delete globalState.deferDisposalTimer;
     }
 
-    if (typeof innerParams.onDestroy === 'function') {
-      innerParams.onDestroy();
-    }
-
+    runDidDestroy(innerParams);
     disposeSwal(this);
   }
+
+  var runDidDestroy = function runDidDestroy(innerParams) {
+    if (typeof innerParams.didDestroy === 'function') {
+      innerParams.didDestroy();
+    } else if (typeof innerParams.onDestroy === 'function') {
+      innerParams.onDestroy(); // @deprecated
+    }
+  };
 
   var disposeSwal = function disposeSwal(instance) {
     // Unset this.params so GC will dispose it (#1569)
@@ -69663,7 +69872,7 @@ if (false) {} else {
     };
   });
   SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '9.17.2';
+  SweetAlert.version = '10.8.1';
 
   var Swal = SweetAlert;
   Swal["default"] = Swal;
@@ -70226,6 +70435,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -70263,49 +70476,80 @@ function Locations() {
     }
 
     function _loadLocations() {
-      _loadLocations = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response, _yield$Swal$fire, accept;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      _loadLocations = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
-                return _utils_axios__WEBPACK_IMPORTED_MODULE_3__["default"].get("/locations");
+                _context2.next = 2;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_3__["default"].get("/locations")["catch"]( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(error) {
+                    var errors, _yield$Swal$fire, accept;
+
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            errors = _objectSpread({}, error);
+
+                            if (!(errors.response.status == 401)) {
+                              _context.next = 9;
+                              break;
+                            }
+
+                            _context.next = 4;
+                            return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: "Sua cessão inspirou!",
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'Voltar ao Login!'
+                            });
+
+                          case 4:
+                            _yield$Swal$fire = _context.sent;
+                            accept = _yield$Swal$fire.value;
+                            window.location.href = "/login";
+                            _context.next = 11;
+                            break;
+
+                          case 9:
+                            console.log(errors);
+                            sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: error,
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                            });
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
 
               case 2:
-                response = _context.sent;
-                console.log(response);
+                response = _context2.sent;
 
-                if (!(response.status === 200)) {
-                  _context.next = 8;
-                  break;
+                if (response.status === 200) {
+                  setLocations(response.data);
                 }
 
-                setLocations(response.data);
-                _context.next = 12;
-                break;
-
-              case 8:
-                _context.next = 10;
-                return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
-                  title: "Ops...",
-                  text: "Sua cessão inspirou!",
-                  icon: 'error',
-                  confirmButtonColor: '#3085d6',
-                  confirmButtonText: 'Voltar ao Login!'
-                });
-
-              case 10:
-                _yield$Swal$fire = _context.sent;
-                accept = _yield$Swal$fire.value;
-
-              case 12:
+              case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
       return _loadLocations.apply(this, arguments);
     }
@@ -70385,6 +70629,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/axios */ "./resources/js/components/utils/axios.js");
 /* harmony import */ var _image_logo_lages_sc_sem_fundo_webp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../image/logo-lages-sc-sem-fundo.webp */ "./resources/image/logo-lages-sc-sem-fundo.webp");
 /* harmony import */ var _image_logo_lages_sc_sem_fundo_webp__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_image_logo_lages_sc_sem_fundo_webp__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -70406,6 +70652,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
  //assets import
+
 
 
 
@@ -70436,6 +70683,13 @@ function Login() {
               return _utils_axios__WEBPACK_IMPORTED_MODULE_3__["default"].post('/login', {
                 email: email,
                 password: password
+              })["catch"](function (e) {
+                console.log(e);
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Dados invalidos'
+                });
               });
 
             case 3:
@@ -70443,6 +70697,7 @@ function Login() {
 
               if (response.status == 200) {
                 localStorage.setItem('token', response.data.access_token);
+                localStorage.setItem('user', response.data.user);
                 window.location.href = "/dashboard";
               }
 
@@ -70782,7 +71037,7 @@ function MainNavbar() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "navbar-toggler-icon"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: "nav-item dropdown icons-container d-md-none"
+    className: "nav-item dropdown icons-container d-lg-none"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "nav-link dropdown-toggle",
     id: "navbarDropdown",
@@ -70888,7 +71143,7 @@ function MainNavbar() {
     className: "dropdown-item",
     href: "/host-ip"
   }, "Hosts por IP")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: "nav-item dropdown icons-container d-none d-md-flex"
+    className: "nav-item dropdown icons-container d-none d-lg-flex"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "nav-link dropdown-toggle",
     id: "navbarDropdown",
@@ -71207,7 +71462,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _utils_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/axios */ "./resources/js/components/utils/axios.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
 
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -71231,6 +71492,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Subnets() {
   var _React$createElement;
 
@@ -71245,17 +71507,69 @@ function Subnets() {
     }
 
     function _loadSubnets() {
-      _loadSubnets = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      _loadSubnets = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
-                return _utils_axios__WEBPACK_IMPORTED_MODULE_3__["default"].get("/subnets");
+                _context2.next = 2;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_3__["default"].get("/subnets")["catch"]( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(error) {
+                    var errors, _yield$Swal$fire, accept;
+
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            errors = _objectSpread({}, error);
+
+                            if (!(errors.response.status == 401)) {
+                              _context.next = 9;
+                              break;
+                            }
+
+                            _context.next = 4;
+                            return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: "Sua cessão inspirou!",
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'Voltar ao Login!'
+                            });
+
+                          case 4:
+                            _yield$Swal$fire = _context.sent;
+                            accept = _yield$Swal$fire.value;
+                            window.location.href = "/login";
+                            _context.next = 11;
+                            break;
+
+                          case 9:
+                            console.log(errors);
+                            sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: error,
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                            });
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
 
               case 2:
-                response = _context.sent;
+                response = _context2.sent;
 
                 if (response.status === 200) {
                   setSubnets(response.data);
@@ -71263,10 +71577,10 @@ function Subnets() {
 
               case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
       return _loadSubnets.apply(this, arguments);
     }
@@ -71399,42 +71713,266 @@ if (document.getElementById('typehost')) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/axios */ "./resources/js/components/utils/axios.js");
+/* harmony import */ var _utils_IsIp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/IsIp */ "./resources/js/components/utils/IsIp.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
+
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
 
 
 function RegDns() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    function loadDns() {
+      return _loadDns.apply(this, arguments);
+    }
+
+    function _loadDns() {
+      _loadDns = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response, allDns;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get('/dns')["catch"]( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(error) {
+                    var errors, _yield$Swal$fire, accept;
+
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            errors = _objectSpread({}, error);
+
+                            if (!(errors.response.status == 401)) {
+                              _context.next = 9;
+                              break;
+                            }
+
+                            _context.next = 4;
+                            return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: "Sua cessão inspirou!",
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'Voltar ao Login!'
+                            });
+
+                          case 4:
+                            _yield$Swal$fire = _context.sent;
+                            accept = _yield$Swal$fire.value;
+                            window.location.href = "/login";
+                            _context.next = 11;
+                            break;
+
+                          case 9:
+                            console.log(errors);
+                            sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: error,
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                            });
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 2:
+                response = _context2.sent;
+
+                if (response.status == 200) {
+                  allDns = _toConsumableArray(response.data);
+                  allDns.map(function (dns) {
+                    if (dns.id == 1) {
+                      setDns1(dns.dns);
+                    } else {
+                      setDns2(dns.dns);
+                    }
+                  });
+                }
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      return _loadDns.apply(this, arguments);
+    }
+
+    loadDns();
+  }, []);
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       dns1 = _useState2[0],
       setDns1 = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState4 = _slicedToArray(_useState3, 2),
       dns2 = _useState4[0],
       setDns2 = _useState4[1];
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  function registerDns(_x2) {
+    return _registerDns.apply(this, arguments);
+  }
+
+  function _registerDns() {
+    _registerDns = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(event) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              event.preventDefault();
+
+              if (!(dns1 !== "" && dns2 !== "")) {
+                _context3.next = 14;
+                break;
+              }
+
+              if (!Object(_utils_IsIp__WEBPACK_IMPORTED_MODULE_3__["default"])(dns1)) {
+                _context3.next = 11;
+                break;
+              }
+
+              if (!Object(_utils_IsIp__WEBPACK_IMPORTED_MODULE_3__["default"])(dns2)) {
+                _context3.next = 8;
+                break;
+              }
+
+              _context3.next = 6;
+              return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].put('/dns', {
+                dns1: dns1,
+                dns2: dns2
+              }).then(function (response) {
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                  icon: 'success',
+                  title: 'Show!',
+                  text: response.data.message
+                });
+              })["catch"](function (error) {
+                var errors = _objectSpread({}, error);
+
+                if (errors.response.status == 422) {
+                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: errors.response.data.message
+                  });
+                } else {
+                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error
+                  });
+                }
+              });
+
+            case 6:
+              _context3.next = 9;
+              break;
+
+            case 8:
+              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "O DNS 2 informado não é valido"
+              });
+
+            case 9:
+              _context3.next = 12;
+              break;
+
+            case 11:
+              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "O DNS 1 informado não é valido"
+              });
+
+            case 12:
+              _context3.next = 15;
+              break;
+
+            case 14:
+              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "Não podemos alterar os dns's se todos os campos não estiverem preenchidos!"
+              });
+
+            case 15:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+    return _registerDns.apply(this, arguments);
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     className: "form-cad-dns row",
-    id: "form-dns"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "form-dns",
+    onSubmit: function onSubmit(e) {
+      return registerDns(e);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group dns1 col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-dns1-dns",
     className: "text-dark"
-  }, "DNS 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "DNS 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-dns1-dns",
@@ -71442,12 +71980,12 @@ function RegDns() {
     onChange: function onChange(e) {
       setDns1(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group dns2-mikrotik dns2 col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-dns2-dns",
     className: "text-dark"
-  }, "DNS 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "DNS 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-dns2-dns",
@@ -71455,7 +71993,7 @@ function RegDns() {
     onChange: function onChange(e) {
       setDns2(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-primary col-10 offset-1 col-md-8 offset-md-2 col-lg-4 offset-lg-8"
   }, "Cadastrar"));
@@ -71875,8 +72413,26 @@ function RegHost() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/axios */ "./resources/js/components/utils/axios.js");
+/* harmony import */ var _utils_valCep__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/valCep */ "./resources/js/components/utils/valCep.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -71891,43 +72447,46 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 function RegLocal() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       name = _useState2[0],
       setName = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState4 = _slicedToArray(_useState3, 2),
       address = _useState4[0],
       setAddress = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState6 = _slicedToArray(_useState5, 2),
       number = _useState6[0],
       setNumber = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState8 = _slicedToArray(_useState7, 2),
       district = _useState8[0],
       setDisctric = _useState8[1];
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState10 = _slicedToArray(_useState9, 2),
       city = _useState10[0],
       setCity = _useState10[1];
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState12 = _slicedToArray(_useState11, 2),
-      zipCode = _useState12[0],
+      zip_code = _useState12[0],
       setZipCode = _useState12[1];
 
-  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("SC"),
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])("SC"),
       _useState14 = _slicedToArray(_useState13, 2),
       uf = _useState14[0],
       setUF = _useState14[1];
 
-  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(true),
       _useState16 = _slicedToArray(_useState15, 2),
       active = _useState16[0],
       setActive = _useState16[1];
@@ -71936,15 +72495,112 @@ function RegLocal() {
     setActive(!active);
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  function registerNewLocal(_x) {
+    return _registerNewLocal.apply(this, arguments);
+  }
+
+  function _registerNewLocal() {
+    _registerNewLocal = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              event.preventDefault();
+
+              if (!(name !== "" && address !== "" && number !== "" && district !== "" && city !== "" && zip_code !== "")) {
+                _context.next = 10;
+                break;
+              }
+
+              if (!Object(_utils_valCep__WEBPACK_IMPORTED_MODULE_3__["default"])(zip_code)) {
+                _context.next = 7;
+                break;
+              }
+
+              _context.next = 5;
+              return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].post('/locations', {
+                name: name,
+                address: address,
+                number: number,
+                district: district,
+                city: city,
+                zip_code: Object(_utils_valCep__WEBPACK_IMPORTED_MODULE_3__["default"])(zip_code).cep,
+                uf: uf,
+                active: active
+              }).then(function (response) {
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                  icon: 'success',
+                  title: 'Show!',
+                  text: response.data.message
+                });
+                setName('');
+                setAddress("");
+                setNumber("");
+                setDisctric("");
+                setCity("");
+                setZipCode("");
+              })["catch"](function (error) {
+                var errors = _objectSpread({}, error);
+
+                if (errors.response.status == 422) {
+                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: errors.response.data.message
+                  });
+                } else {
+                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error
+                  });
+                }
+              });
+
+            case 5:
+              _context.next = 8;
+              break;
+
+            case 7:
+              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "CEP infomado não té valido"
+              });
+
+            case 8:
+              _context.next = 11;
+              break;
+
+            case 10:
+              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "Não podemos cadastrar o local se todos os campos não estiverem preenchidos!"
+              });
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _registerNewLocal.apply(this, arguments);
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     className: "form-cad-local row",
-    id: "form-local"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "form-local",
+    onSubmit: function onSubmit(e) {
+      return registerNewLocal(e);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group name-local col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-name-local",
     className: "text-dark"
-  }, "Nome do Local"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Nome do Local"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-name-local",
@@ -71952,12 +72608,12 @@ function RegLocal() {
     onChange: function onChange(e) {
       setName(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group address-local col-12 col-md-6 col-lg-8"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-address",
     className: "text-dark"
-  }, "Endere\xE7o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Endere\xE7o"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-address",
@@ -71965,12 +72621,12 @@ function RegLocal() {
     onChange: function onChange(e) {
       setAddress(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group number-local col-12 col-md-6 col-lg-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-number",
     className: "text-dark"
-  }, "N\xFAmero"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "N\xFAmero"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-number",
@@ -71978,12 +72634,12 @@ function RegLocal() {
     onChange: function onChange(e) {
       setNumber(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group district-local col-12 col-md-6 col-lg-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-district",
     className: "text-dark"
-  }, "Bairro"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Bairro"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-district",
@@ -71991,12 +72647,12 @@ function RegLocal() {
     onChange: function onChange(e) {
       setDisctric(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group city-local col-12 col-md-6 col-lg-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-city",
     className: "text-dark"
-  }, "Cidade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Cidade"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-city",
@@ -72004,97 +72660,97 @@ function RegLocal() {
     onChange: function onChange(e) {
       setCity(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group zip-code-local col-12 col-md-6 col-lg-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-zip-code",
     className: "text-dark"
-  }, "CEP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "CEP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-zip-code",
-    value: zipCode,
+    value: zip_code,
     onChange: function onChange(e) {
       setZipCode(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group uf-local col-12 col-md-6 col-lg-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-uf",
     className: "text-dark"
-  }, "UF"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "UF"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     className: "form-control",
     id: "input-uf",
     value: uf,
     onChange: function onChange(e) {
       setUF(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "AC"
-  }, "AC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "AC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "AL"
-  }, "AL"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "AL"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "AP"
-  }, "AP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "AP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "AM"
-  }, "AM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "AM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "BA"
-  }, "BA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "BA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "CE"
-  }, "CE"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "CE"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "DF"
-  }, "DF"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "DF"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "ES"
-  }, "ES"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "ES"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "GO"
-  }, "GO"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "GO"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "MA"
-  }, "MA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "MA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "MT"
-  }, "MT"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "MT"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "MS"
-  }, "MS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "MS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "MG"
-  }, "MG"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "MG"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "PA"
-  }, "PA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "PA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "PB"
-  }, "PB"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "PB"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "PR"
-  }, "PR"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "PR"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "PE"
-  }, "PE"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "PE"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "PI"
-  }, "PI"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "PI"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "RJ"
-  }, "RJ"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "RJ"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "RN"
-  }, "RN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "RN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "RS"
-  }, "RS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "RS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "RO"
-  }, "RO"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "RO"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "RR"
-  }, "RR"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "RR"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "SC"
-  }, "SC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "SC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "SP"
-  }, "SP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "SP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "SE"
-  }, "SE"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "SE"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "TO"
-  }, "TO"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "TO"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group chk-local col-12 ml-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     className: "form-check-input",
     type: "checkbox",
     id: "input-active",
     checked: active,
     onClick: alterActive
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-active",
     className: "text-dark"
-  }, "Ativo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, "Ativo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-primary col-10 offset-1 col-md-8 offset-md-2 col-lg-4 offset-lg-8"
   }, "Cadastrar"));
@@ -72113,8 +72769,34 @@ function RegLocal() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/axios */ "./resources/js/components/utils/axios.js");
+/* harmony import */ var _utils_IsIp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/IsIp */ "./resources/js/components/utils/IsIp.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
+
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -72129,66 +72811,225 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 function RegMikrotik() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
-      name = _useState2[0],
-      setName = _useState2[1];
+      allSubrede = _useState2[0],
+      setAllSubrede = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    function loadDependences() {
+      return _loadDependences.apply(this, arguments);
+    }
+
+    function _loadDependences() {
+      _loadDependences = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response, allDns;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get('/dns')["catch"]( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(error) {
+                    var errors, _yield$Swal$fire, accept;
+
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            errors = _objectSpread({}, error);
+
+                            if (!(errors.response.status == 401)) {
+                              _context.next = 9;
+                              break;
+                            }
+
+                            _context.next = 4;
+                            return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: "Sua cessão inspirou!",
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'Voltar ao Login!'
+                            });
+
+                          case 4:
+                            _yield$Swal$fire = _context.sent;
+                            accept = _yield$Swal$fire.value;
+                            window.location.href = "/login";
+                            _context.next = 11;
+                            break;
+
+                          case 9:
+                            console.log(errors);
+                            sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: error,
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                            });
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 2:
+                response = _context3.sent;
+
+                if (response.status == 200) {
+                  allDns = _toConsumableArray(response.data);
+                  allDns.map(function (dns) {
+                    if (dns.id == 1) {
+                      setDns1(dns.dns);
+                    } else {
+                      setDns2(dns.dns);
+                    }
+                  });
+                }
+
+                _context3.next = 6;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get('/subnets').then(function (responseSub) {
+                  setAllSubrede(_toConsumableArray(responseSub.data));
+                })["catch"]( /*#__PURE__*/function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(error) {
+                    var errors, _yield$Swal$fire2, accept;
+
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            errors = _objectSpread({}, error);
+
+                            if (!(errors.response.status == 401)) {
+                              _context2.next = 9;
+                              break;
+                            }
+
+                            _context2.next = 4;
+                            return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: "Sua cessão inspirou!",
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'Voltar ao Login!'
+                            });
+
+                          case 4:
+                            _yield$Swal$fire2 = _context2.sent;
+                            accept = _yield$Swal$fire2.value;
+                            window.location.href = "/login";
+                            _context2.next = 11;
+                            break;
+
+                          case 9:
+                            console.log(errors);
+                            sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: error,
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                            });
+
+                          case 11:
+                          case "end":
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2);
+                  }));
+
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+      return _loadDependences.apply(this, arguments);
+    }
+
+    loadDependences();
+  }, []);
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      subrede = _useState4[0],
-      setSubrede = _useState4[1];
+      name = _useState4[0],
+      setName = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      ipWan = _useState6[0],
-      setIpWan = _useState6[1];
+      subrede = _useState6[0],
+      setSubrede = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState8 = _slicedToArray(_useState7, 2),
-      ipLan = _useState8[0],
-      setIpLan = _useState8[1];
+      ipWan = _useState8[0],
+      setIpWan = _useState8[1];
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState10 = _slicedToArray(_useState9, 2),
-      gatway = _useState10[0],
-      setGatway = _useState10[1];
+      ipLan = _useState10[0],
+      setIpLan = _useState10[1];
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState12 = _slicedToArray(_useState11, 2),
-      netmask = _useState12[0],
-      setNetmask = _useState12[1];
+      gatway = _useState12[0],
+      setGatway = _useState12[1];
 
-  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState14 = _slicedToArray(_useState13, 2),
-      dns1 = _useState14[0],
-      setDns1 = _useState14[1];
+      netmask = _useState14[0],
+      setNetmask = _useState14[1];
 
-  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState16 = _slicedToArray(_useState15, 2),
-      dns2 = _useState16[0],
-      setDns2 = _useState16[1];
+      dns1 = _useState16[0],
+      setDns1 = _useState16[1];
 
-  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("admin"),
+  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState18 = _slicedToArray(_useState17, 2),
-      username = _useState18[0],
-      setUsername = _useState18[1];
+      dns2 = _useState18[0],
+      setDns2 = _useState18[1];
 
-  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])("admin"),
       _useState20 = _slicedToArray(_useState19, 2),
-      password = _useState20[0],
-      setPassword = _useState20[1];
+      username = _useState20[0],
+      setUsername = _useState20[1];
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
+      _useState22 = _slicedToArray(_useState21, 2),
+      password = _useState22[0],
+      setPassword = _useState22[1];
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     className: "form-cad-mikrotik row",
     id: "form-mikortik"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group name-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-name-mk",
     className: "text-dark"
-  }, "Nome do Mikrotik"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Nome do Mikrotik"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-name-mk",
@@ -72196,12 +73037,12 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setName(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group subnet-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "subnet-mk",
     className: "text-dark"
-  }, "Subrede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Subrede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "subnet-mk",
@@ -72209,12 +73050,17 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setSubrede(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Escolha uma subrede..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Escolha uma subrede..."), allSubrede.map(function (sub) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+      value: sub.subnet.id,
+      key: sub.subnet.id
+    }, sub.subnet.name, " - ", sub.subnet.ip);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group ip-lan-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-ip-wan-mk",
     className: "text-dark"
-  }, "IP WAN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "IP WAN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-ip-wan-mk",
@@ -72222,12 +73068,12 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setIpWan(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group ip-lan-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-ip-lan-mk",
     className: "text-dark"
-  }, "IP LAN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "IP LAN"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-ip-lan-mk",
@@ -72235,12 +73081,12 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setIpLan(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group gateway-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-gateway-mk",
     className: "text-dark"
-  }, "Gateway"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Gateway"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-gateway-mk",
@@ -72248,12 +73094,12 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setGatway(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group netmask-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-mask-mk",
     className: "text-dark"
-  }, "Mascara de rede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Mascara de rede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "input-mask-mk",
@@ -72261,14 +73107,14 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setNetmask(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: 24
-  }, "255.255.255.0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "255.255.255.0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group dns1-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-dns1-mk",
     className: "text-dark"
-  }, "DNS 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "DNS 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-dns1-mk",
@@ -72276,12 +73122,12 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setDns1(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group dns2-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-dns2-mk",
     className: "text-dark"
-  }, "DNS 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "DNS 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-dns2-mk",
@@ -72289,12 +73135,12 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setDns2(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group username-mikrotik col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-username-mk",
     className: "text-dark"
-  }, "Username"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Username"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-username-mk",
@@ -72302,12 +73148,12 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setUsername(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group password-mikrotik  col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-password-mk",
     className: "text-dark"
-  }, "Senha do Mikrotik"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Senha do Mikrotik"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "password",
     className: "form-control",
     id: "input-password-mk",
@@ -72315,7 +73161,7 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setPassword(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-primary col-10 offset-1 col-md-8 offset-md-2 col-lg-4 offset-lg-8"
   }, "Cadastrar"));
@@ -72334,8 +73180,34 @@ function RegMikrotik() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/axios */ "./resources/js/components/utils/axios.js");
+/* harmony import */ var _utils_IsIp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/IsIp */ "./resources/js/components/utils/IsIp.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
+
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -72350,36 +73222,146 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 function RegSubnet() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
-      name = _useState2[0],
-      setName = _useState2[1];
+      allLocations = _useState2[0],
+      setAllLocations = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState4 = _slicedToArray(_useState3, 2),
-      ip = _useState4[0],
-      setIP = _useState4[1];
+      allNetmask = _useState4[0],
+      setAllNetmask = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(24),
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    function loaderInitialOptions() {
+      return _loaderInitialOptions.apply(this, arguments);
+    }
+
+    function _loaderInitialOptions() {
+      _loaderInitialOptions = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response, responseNetmask;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("/locations")["catch"]( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(error) {
+                    var errors, _yield$Swal$fire, accept;
+
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            errors = _objectSpread({}, error);
+
+                            if (!(errors.response.status == 401)) {
+                              _context.next = 9;
+                              break;
+                            }
+
+                            _context.next = 4;
+                            return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: "Sua cessão inspirou!",
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'Voltar ao Login!'
+                            });
+
+                          case 4:
+                            _yield$Swal$fire = _context.sent;
+                            accept = _yield$Swal$fire.value;
+                            window.location.href = "/login";
+                            _context.next = 11;
+                            break;
+
+                          case 9:
+                            console.log(errors);
+                            sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: error,
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                            });
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 2:
+                response = _context2.sent;
+
+                if (response.status === 200) {
+                  setAllLocations(_toConsumableArray(response.data));
+                }
+
+                _context2.next = 6;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("/netmask");
+
+              case 6:
+                responseNetmask = _context2.sent;
+
+                if (responseNetmask.status === 200) {
+                  setAllNetmask(_toConsumableArray(responseNetmask.data));
+                }
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      return _loaderInitialOptions.apply(this, arguments);
+    }
+
+    loaderInitialOptions();
+  }, []);
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      netmask = _useState6[0],
-      setNetmask = _useState6[1];
+      name = _useState6[0],
+      setName = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      localId = _useState8[0],
-      setLocalId = _useState8[1];
+      ip = _useState8[0],
+      setIP = _useState8[1];
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(24),
       _useState10 = _slicedToArray(_useState9, 2),
-      access = _useState10[0],
-      setAccess = _useState10[1];
+      netmask = _useState10[0],
+      setNetmask = _useState10[1];
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
       _useState12 = _slicedToArray(_useState11, 2),
-      active = _useState12[0],
-      setActive = _useState12[1];
+      localId = _useState12[0],
+      setLocalId = _useState12[1];
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      access = _useState14[0],
+      setAccess = _useState14[1];
+
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(true),
+      _useState16 = _slicedToArray(_useState15, 2),
+      active = _useState16[0],
+      setActive = _useState16[1];
 
   function alterchk(chk) {
     if (chk === 'access') {
@@ -72389,15 +73371,106 @@ function RegSubnet() {
     }
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  function registerNewSubnet(_x2) {
+    return _registerNewSubnet.apply(this, arguments);
+  }
+
+  function _registerNewSubnet() {
+    _registerNewSubnet = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(event) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              event.preventDefault();
+
+              if (!(name !== "" && ip !== "")) {
+                _context3.next = 10;
+                break;
+              }
+
+              if (!Object(_utils_IsIp__WEBPACK_IMPORTED_MODULE_3__["default"])(ip)) {
+                _context3.next = 7;
+                break;
+              }
+
+              _context3.next = 5;
+              return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].post('/subnets', {
+                name: name,
+                ip: ip,
+                netmask_bits: netmask,
+                local_id: localId,
+                access: access,
+                active: active
+              }).then(function (response) {
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                  icon: 'success',
+                  title: 'Show!',
+                  text: response.data.message
+                });
+                setName('');
+                setIP('');
+              })["catch"](function (error) {
+                var errors = _objectSpread({}, error);
+
+                if (errors.response.status == 422) {
+                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: errors.response.data.message
+                  });
+                } else {
+                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error
+                  });
+                }
+              });
+
+            case 5:
+              _context3.next = 8;
+              break;
+
+            case 7:
+              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "O IP informado não é valido"
+              });
+
+            case 8:
+              _context3.next = 11;
+              break;
+
+            case 10:
+              sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "Não podemos cadastrar a sub-rede se todos os campos não estiverem preenchidos!"
+              });
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+    return _registerNewSubnet.apply(this, arguments);
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     className: "form-cad-subnet row",
-    id: "form-subnet"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "form-subnet",
+    onSubmit: function onSubmit(e) {
+      return registerNewSubnet(e);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group name-subnet col-12 col-md-6"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "name-subnet",
     className: "text-dark"
-  }, "Nome da Subrede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Nome da Subrede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "name-subnet",
@@ -72405,12 +73478,12 @@ function RegSubnet() {
     onChange: function onChange(e) {
       setName(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group ip-subnet col-12 col-md-6"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "ip-subnet",
     className: "text-dark"
-  }, "IP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "IP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "ip-subnet",
@@ -72418,12 +73491,12 @@ function RegSubnet() {
     onChange: function onChange(e) {
       setIP(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group netmask-subnet col-12 col-md-6"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "mask-subnet",
     className: "text-dark"
-  }, "Mascara de rede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Mascara de rede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "mask-subnet",
@@ -72431,14 +73504,17 @@ function RegSubnet() {
     onChange: function onChange(e) {
       setNetmask(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-    value: 24
-  }, "255.255.255.0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, allNetmask.map(function (mask) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+      key: mask.id,
+      value: mask.bits
+    }, mask.mask);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group local-subnet col-12 col-md-6"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "local-subnet",
     className: "text-dark"
-  }, "Local"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Local"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "local-subnet",
@@ -72446,9 +73522,14 @@ function RegSubnet() {
     onChange: function onChange(e) {
       setLocalId(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Selecione o local dessa subrede..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Selecione o local dessa subrede..."), allLocations.map(function (local) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+      key: local.id,
+      value: local.id
+    }, local.name, " - ", local.address);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group chk col-6 col-md-5 col-lg-4 ml-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     className: "form-check-input",
     type: "checkbox",
     id: "input-access",
@@ -72456,12 +73537,12 @@ function RegSubnet() {
     onClick: function onClick() {
       return alterchk('access');
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-access",
     className: "text-dark"
-  }, "Acesso as outras subredes")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Acesso as outras subredes")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group chk col-6 col-md-7 col-lg-6"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     className: "form-check-input",
     type: "checkbox",
     id: "input-active",
@@ -72469,10 +73550,10 @@ function RegSubnet() {
     onClick: function onClick() {
       return alterchk('active');
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-active",
     className: "text-dark"
-  }, "Active")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, "Active")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-primary col-10 offset-1 col-md-8 offset-md-2 col-lg-4 offset-lg-8"
   }, "Cadastrar"));
@@ -72538,6 +73619,27 @@ function RegTypeHost() {
 
 /***/ }),
 
+/***/ "./resources/js/components/utils/IsIp.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/utils/IsIp.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ValidateIPaddress(ipaddress) {
+  if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {
+    return true;
+  }
+
+  return false;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (ValidateIPaddress);
+
+/***/ }),
+
 /***/ "./resources/js/components/utils/axios.js":
 /*!************************************************!*\
   !*** ./resources/js/components/utils/axios.js ***!
@@ -72552,13 +73654,72 @@ __webpack_require__.r(__webpack_exports__);
 
 var token = localStorage.getItem('token');
 var api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "http://127.0.0.1:8000/api/v1",
   headers: {
     'Content-Type': 'application/json',
-    Authorization: "Bearer ".concat(token)
+    Authorization: "Bearer ".concat(token),
+    headers: {
+      ContentType: 'application/json',
+      Accept: "application/json"
+    }
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (api);
+
+/***/ }),
+
+/***/ "./resources/js/components/utils/valCep.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/utils/valCep.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function Trim(strTexto) {
+  // Substitúi os espaços vazios no inicio e no fim da string por vazio.
+  return strTexto.replace(/^\s+|\s+$/g, '');
+} // Função para validação de CEP.
+
+
+function IsCEP(strCEP) {
+  // Caso o CEP não esteja nesse formato ele é inválido!
+  var objER1 = /^[0-9]{2}\.[0-9]{3}-[0-9]{3}$/;
+  var objER2 = /^[0-9]{5}-[0-9]{3}$/;
+  var objER3 = /^[0-9]{8}$/;
+  strCEP = Trim(strCEP);
+
+  if (strCEP.length > 0) {
+    if (objER1.test(strCEP)) {
+      var cepArrayOne = strCEP.split(".");
+      var cepArrayTwo = [cepArrayOne[0], cepArrayOne[1].split("-")];
+      var cep = "".concat(cepArrayTwo[0]) + "".concat(cepArrayTwo[1][0]) + "".concat(cepArrayTwo[1][1]);
+      return {
+        valid: true,
+        cep: cep
+      };
+    } else if (objER2.test(strCEP)) {
+      var cepArray = strCEP.split("-");
+
+      var _cep = "".concat(cepArray[0]) + "".concat(cepArray[1]);
+
+      return {
+        valid: true,
+        cep: _cep
+      };
+    } else if (objER3.test(strCEP)) {
+      return {
+        valid: true,
+        cep: strCEP
+      };
+    } else {
+      return false;
+    }
+  } else return false;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (IsCEP);
 
 /***/ }),
 

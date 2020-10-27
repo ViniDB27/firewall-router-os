@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
- 
+
 function MainNavbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark main-menu">
@@ -8,7 +8,7 @@ function MainNavbar() {
                 <span className="navbar-toggler-icon"></span>
             </button>
 
-            <li className="nav-item dropdown icons-container d-md-none">
+            <li className="nav-item dropdown icons-container d-lg-none">
                 <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i className="material-icons text-light icon-settings" title="Settings" >settings</i>
                 </a>
@@ -60,7 +60,7 @@ function MainNavbar() {
                     </div>
                 </li>
                 </ul>
-                <li className="nav-item dropdown icons-container d-none d-md-flex">
+                <li className="nav-item dropdown icons-container d-none d-lg-flex">
                     <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i className="material-icons text-light icon-settings" title="Settings" >settings</i>
                     </a>

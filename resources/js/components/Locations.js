@@ -12,24 +12,46 @@ function Locations(){
 
         async function loadLocations(){
 
-            const response = await api.get("/locations");
+            const response = await api.get("/locations")
+            .catch(async error=>{
 
-            console.log(response)
+                let errors = { ... error}
+
+                if(errors.response.status == 401){
+
+                    const { value: accept } = await  Swal.fire({
+
+                        title: `Ops...`,
+                        text: "Sua cessão inspirou!",
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Voltar ao Login!'
+
+                    })
+
+                    window.location.href = "/login";
+
+                }else{
+
+                    console.log(errors)
+
+                    Swal.fire({
+
+                        title: `Ops...`,
+                        text: error,
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+
+                    })
+                }
+
+
+            })
+
 
             if(response.status === 200){
                 setLocations(response.data)
-            }else{
-
-                const { value: accept } = await Swal.fire({
-
-                    title: `Ops...`,
-                    text: "Sua cessão inspirou!",
-                    icon: 'error',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Voltar ao Login!'
-
-                })
-
             }
         }
 

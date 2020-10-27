@@ -1,4 +1,8 @@
 import React, {useState} from 'react';
+import api from '../utils/axios'
+import valCep from '../utils/valCep'
+
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 function RegLocal() {
 
@@ -7,7 +11,7 @@ function RegLocal() {
     const [number, setNumber] = useState("")
     const [district, setDisctric] = useState("")
     const [city, setCity] = useState("")
-    const [zipCode, setZipCode] = useState("")
+    const [zip_code, setZipCode] = useState("")
     const [uf, setUF] = useState("SC")
     const [active, setActive] = useState(true)
 
@@ -15,8 +19,91 @@ function RegLocal() {
             setActive(!active)
     }
 
+    async function registerNewLocal(event) {
+
+        event.preventDefault()
+
+        if(name !== "" && address !=="" && number !== "" && district !=="" && city !=="" && zip_code !==""){
+
+            if( valCep(zip_code) ){
+
+                await api.post('/locations',{
+                    name,
+                    address,
+                    number,
+                    district,
+                    city,
+                    zip_code: valCep(zip_code).cep,
+                    uf,
+                    active
+                })
+                .then((response)=>{
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Show!',
+                        text: response.data.message,
+                    })
+
+                    setName('')
+                    setAddress("")
+                    setNumber("")
+                    setDisctric("")
+                    setCity("")
+                    setZipCode("")
+
+                })
+                .catch(error=>{
+
+                    let errors = { ... error}
+
+                    if(errors.response.status == 422){
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text:errors.response.data.message,
+                        })
+
+                    }else{
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text:error,
+                        })
+
+                    }
+
+                })
+
+            }else{
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: "CEP infomado não té valido",
+                })
+
+            }
+
+
+
+
+
+        }else{
+
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "Não podemos cadastrar o local se todos os campos não estiverem preenchidos!",
+            })
+
+        }
+
+    }
+
     return (
-        <form className="form-cad-local row" id="form-local" >
+        <form className="form-cad-local row" id="form-local" onSubmit={e=>registerNewLocal(e)} >
 
             <div className="form-group name-local col-12 col-md-6 col-lg-4">
                 <label htmlFor="input-name-local" className="text-dark" >Nome do Local</label>
@@ -45,7 +132,7 @@ function RegLocal() {
 
             <div className="form-group zip-code-local col-12 col-md-6 col-lg-3" >
                 <label htmlFor="input-zip-code" className="text-dark" >CEP</label>
-                <input type="text" className="form-control" id="input-zip-code" value={zipCode} onChange={e=>{setZipCode(e.target.value)}}  />
+                <input type="text" className="form-control" id="input-zip-code" value={zip_code} onChange={e=>{setZipCode(e.target.value)}}  />
             </div>
 
             <div className="form-group uf-local col-12 col-md-6 col-lg-3" >

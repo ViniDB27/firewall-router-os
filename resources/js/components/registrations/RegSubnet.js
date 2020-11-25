@@ -113,15 +113,19 @@ function RegSubnet() {
                 }).catch(error=>{
                     let errors = { ... error}
 
+
+
                     if(errors.response.status == 422){
 
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text:errors.response.data.message,
+                            text:errors.response.data.message + ' ' + JSON.stringify(errors.response.data.errors),
                         })
 
                     }else{
+
+
 
                         Swal.fire({
                             icon: 'error',

@@ -113,8 +113,8 @@ function RegMikrotik() {
     const [subrede, setSubrede] = useState("")
     const [ipWan, setIpWan] = useState("")
     const [ipLan, setIpLan] = useState("")
-    const [gatway, setGatway] = useState("")
-    const [netmask, setNetmask] = useState("")
+    const [gateway, setGateway] = useState("")
+    const [netmask, setNetmask] = useState(24)
     const [dns1, setDns1] = useState("")
     const [dns2, setDns2] = useState("")
     const [username, setUsername] = useState("admin")
@@ -124,18 +124,62 @@ function RegMikrotik() {
 
         event.preventDefault()
 
-        if(name !== "" && ipWan !=="" && ipLan !== "" && gatway !== "" && username !== "" && dns1 !== "" && dns2 !== ""){
+        if(name !== "" && ipWan !=="" && ipLan !== "" && gateway !== "" && username !== "" && password !== "" && dns1 !== "" && dns2 !== ""){
 
             if(IsIp(ipWan)){
 
                 if(IsIp(ipLan)){
 
-                    if(IsIp(gatway)){
+                    if(IsIp(gateway)){
 
                         if(IsIp(dns1)){
 
                             if(IsIp(dns2)){
-                                //aqui está tudo certo
+
+                                await api.post('/mikrotiks',{
+
+                                    name,
+                                    subnet_id:subrede,
+                                    ip_wan:ipWan,
+                                    ip_lan:ipLan,
+                                    gateway,
+                                    netmask_bits:netmask,
+                                    dns1,
+                                    dns2,
+                                    username,
+                                    password,
+                                })
+                                .then(response=>{
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Show!',
+                                        text: response.data.message,
+                                    })
+                                })
+                                .catch(error=>{
+                                    let errors = { ... error}
+
+                                    if(errors.response.status == 422){
+
+
+
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text:errors.response.data.message + ' ' + JSON.stringify(errors.response.data.errors),
+                                        })
+
+                                    }else{
+
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text:error,
+                                        })
+
+                                    }
+                                })
+
                             }else{
 
                                 Swal.fire({
@@ -229,7 +273,7 @@ function RegMikrotik() {
 
             <div className="form-group gateway-mikrotik col-12 col-md-6 col-lg-4">
                 <label htmlFor="input-gateway-mk" className="text-dark" >Gateway</label>
-                <input type="text" className="form-control" id="input-gateway-mk" value={gatway} onChange={e=>{setGatway(e.target.value)}} />
+                <input type="text" className="form-control" id="input-gateway-mk" value={gateway} onChange={e=>{setGateway(e.target.value)}} />
             </div>
 
             <div className="form-group netmask-mikrotik col-12 col-md-6 col-lg-4">

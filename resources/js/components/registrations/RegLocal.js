@@ -61,7 +61,7 @@ function RegLocal() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text:errors.response.data.message,
+                            text:errors.response.data.message + ' ' + JSON.stringify(errors.response.data.errors),
                         })
 
                     }else{

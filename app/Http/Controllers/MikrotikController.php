@@ -29,14 +29,27 @@ class MikrotikController extends Controller
     {
         if($request->user_request->administrator){
 
+            $request->validate([
+                'name'=>'required|max:100',
+                'ip_wan'=>'required',
+                'ip_lan'=>'required',
+                'gateway'=>'required',
+                'subnet_id'=>'required',
+                'dns1'=>'required',
+                'dns2'=>'required',
+                'netmask_bits'=>'required',
+                'username'=>'required',
+                'active'=>'required',
+            ]);
+
             $mikrotik = Mikrotik::create([
                 "name"=> $request->input('name'),
-                "subnet_id "=> $request->input('subnet_id '),
-                "ip_wan "=> $request->input('ip_wan '),
-                "ip_lan "=> $request->input('ip_lan '),
+                "subnet_id"=> $request->input('subnet_id'),
+                "ip_wan"=> $request->input('ip_wan'),
+                "ip_lan"=> $request->input('ip_lan'),
                 "gateway"=> $request->input('gateway'),
-                "netmask_bits "=> $request->input('netmask_bits '),
-                "dns1 " => $request->input('dns1 '),
+                "netmask_bits"=> $request->input('netmask_bits'),
+                "dns1" => $request->input('dns1'),
                 "dns2" => $request->input('dns2'),
                 "username" => $request->input('username'),
                 "password" => $request->input('password'),

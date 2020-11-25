@@ -73021,9 +73021,83 @@ function RegMikrotik() {
       password = _useState22[0],
       setPassword = _useState22[1];
 
+  function registerNewMikrotik(_x3) {
+    return _registerNewMikrotik.apply(this, arguments);
+  }
+
+  function _registerNewMikrotik() {
+    _registerNewMikrotik = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(event) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              event.preventDefault();
+
+              if (name !== "" && ipWan !== "" && ipLan !== "" && gatway !== "" && username !== "" && dns1 !== "" && dns2 !== "") {
+                if (Object(_utils_IsIp__WEBPACK_IMPORTED_MODULE_3__["default"])(ipWan)) {
+                  if (Object(_utils_IsIp__WEBPACK_IMPORTED_MODULE_3__["default"])(ipLan)) {
+                    if (Object(_utils_IsIp__WEBPACK_IMPORTED_MODULE_3__["default"])(gatway)) {
+                      if (Object(_utils_IsIp__WEBPACK_IMPORTED_MODULE_3__["default"])(dns1)) {
+                        if (Object(_utils_IsIp__WEBPACK_IMPORTED_MODULE_3__["default"])(dns2)) {//aqui está tudo certo
+                        } else {
+                          sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            text: "O DNS 2 informado não é valido"
+                          });
+                        }
+                      } else {
+                        sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                          icon: 'warning',
+                          title: 'Oops...',
+                          text: "O DNS 1 informado não é valido"
+                        });
+                      }
+                    } else {
+                      sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                        icon: 'warning',
+                        title: 'Oops...',
+                        text: "O Gateway informado não é valido"
+                      });
+                    }
+                  } else {
+                    sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                      icon: 'warning',
+                      title: 'Oops...',
+                      text: "O IP de LAN informado não é valido"
+                    });
+                  }
+                } else {
+                  sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: "O IP de WAN informado não é valido"
+                  });
+                }
+              } else {
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                  icon: 'warning',
+                  title: 'Oops...',
+                  text: "Não podemos cadastrar a mikrotik se todos os campos não estiverem preenchidos!"
+                });
+              }
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _registerNewMikrotik.apply(this, arguments);
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     className: "form-cad-mikrotik row",
-    id: "form-mikortik"
+    id: "form-mikortik",
+    onSubmit: function onSubmit(e) {
+      registerNewMikrotik(e);
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group name-mikrotik col-12 col-md-6 col-lg-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {

@@ -120,8 +120,87 @@ function RegMikrotik() {
     const [username, setUsername] = useState("admin")
     const [password, setPassword] = useState("")
 
+    async function registerNewMikrotik(event){
+
+        event.preventDefault()
+
+        if(name !== "" && ipWan !=="" && ipLan !== "" && gatway !== "" && username !== "" && dns1 !== "" && dns2 !== ""){
+
+            if(IsIp(ipWan)){
+
+                if(IsIp(ipLan)){
+
+                    if(IsIp(gatway)){
+
+                        if(IsIp(dns1)){
+
+                            if(IsIp(dns2)){
+                                //aqui está tudo certo
+                            }else{
+
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Oops...',
+                                    text: "O DNS 2 informado não é valido",
+                                })
+
+                            }
+
+                        }else{
+
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Oops...',
+                                text: "O DNS 1 informado não é valido",
+                            })
+
+                        }
+
+                    }else{
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            text: "O Gateway informado não é valido",
+                        })
+
+                    }
+
+                }else{
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Oops...',
+                        text: "O IP de LAN informado não é valido",
+                    })
+
+                }
+
+
+            }else{
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: "O IP de WAN informado não é valido",
+                })
+
+            }
+
+
+        }else{
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "Não podemos cadastrar a mikrotik se todos os campos não estiverem preenchidos!",
+            })
+        }
+
+    }
+
+
     return (
-        <form className="form-cad-mikrotik row" id="form-mikortik" >
+        <form className="form-cad-mikrotik row" id="form-mikortik" onSubmit={e=>{registerNewMikrotik(e)}} >
 
             <div className="form-group name-mikrotik col-12 col-md-6 col-lg-4">
                 <label htmlFor="input-name-mk" className="text-dark" >Nome do Mikrotik</label>

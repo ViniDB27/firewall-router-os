@@ -22,7 +22,7 @@ function Locations(){
                     const { value: accept } = await  Swal.fire({
 
                         title: `Ops...`,
-                        text: "Sua cessão inspirou!",
+                        text: "Sua sessão inspirou!",
                         icon: 'error',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Voltar ao Login!'

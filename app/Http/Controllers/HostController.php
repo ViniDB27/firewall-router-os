@@ -34,7 +34,7 @@ class HostController extends Controller
                 "ip" => $request->input('ip'),
                 "gateway"=> $request->input('gateway'),
                 "netmask_bits "=> $request->input('netmask_bits'),
-                "dns1" => $request->input('dns1 '),
+                "dns1" => $request->input('dns1'),
                 "dns2" => $request->input('dns2'),
                 "domain_id" => $request->input('domain_id'),
                 "host_type_id" => $request->input('host_type_id'),

@@ -27,10 +27,10 @@ class DomainController extends Controller
     {
         if($request->user_request->administrator){
 
+
             $domain = Domain::create([
                 "domain" => $request->input('domain'),
-                "active" => $request->input('active'),
-                "user_id" => $request->user_request->id,
+                "user_id" => $request->user_request->id
             ]);
 
             return response()->json(["message"=>"Domínio cadastrado com sucesso!", 'domain'=>$domain]);

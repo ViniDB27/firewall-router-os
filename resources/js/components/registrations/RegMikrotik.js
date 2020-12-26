@@ -7,6 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 function RegMikrotik() {
 
     const [allSubrede, setAllSubrede] = useState([])
+    const [allNetmask, setAllNetmask] = useState([])
 
     useEffect(()=>{
         async function loadDependences(){
@@ -100,6 +101,12 @@ function RegMikrotik() {
 
 
             })
+
+            const responseNetmask = await api.get("/netmask")
+
+            if(responseNetmask.status === 200){
+                setAllNetmask([... responseNetmask.data])
+            }
 
 
 
@@ -279,7 +286,9 @@ function RegMikrotik() {
             <div className="form-group netmask-mikrotik col-12 col-md-6 col-lg-4">
                 <label htmlFor="input-mask-mk" className="text-dark" >Mascara de rede</label>
                 <select type="text" className="form-control" id="input-mask-mk" value={netmask} onChange={e=>{setNetmask(e.target.value)}} >
-                    <option value={24}>255.255.255.0</option>
+                {allNetmask.map(mask=>(
+                        <option key={mask.id} value={mask.bits} >{mask.mask}/{mask.bits}</option>
+                    ))}
                 </select>
             </div>
 

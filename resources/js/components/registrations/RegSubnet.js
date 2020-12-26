@@ -172,7 +172,7 @@ function RegSubnet() {
                 <label htmlFor="mask-subnet" className="text-dark" >Mascara de rede</label>
                 <select type="text" className="form-control" id="mask-subnet" value={netmask} onChange={e=>{setNetmask(e.target.value)}} >
                     {allNetmask.map(mask=>(
-                        <option key={mask.id} value={mask.bits} >{mask.mask}</option>
+                        <option key={mask.id} value={mask.bits} >{mask.mask}/{mask.bits}</option>
                     ))}
                 </select>
             </div>

@@ -17,7 +17,7 @@ class CreateDomainsTable extends Migration
             $table->id();
             $table->string('domain')->unique();
             $table->bigInteger('user_id');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

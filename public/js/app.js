@@ -71853,8 +71853,34 @@ function RegDomain() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/axios */ "./resources/js/components/utils/axios.js");
+/* harmony import */ var _utils_IsIp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/IsIp */ "./resources/js/components/utils/IsIp.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
+
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -71869,86 +71895,231 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 function RegHost() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
-      name = _useState2[0],
-      setName = _useState2[1];
+      allMikrotiks = _useState2[0],
+      setAllMikrotiks = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState4 = _slicedToArray(_useState3, 2),
-      mikrotik = _useState4[0],
-      setMikrotik = _useState4[1];
+      allDomains = _useState4[0],
+      setAllDomains = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState6 = _slicedToArray(_useState5, 2),
-      ip = _useState6[0],
-      setIp = _useState6[1];
+      allTypeHost = _useState6[0],
+      setAllTypeHost = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      mac = _useState8[0],
-      setMac = _useState8[1];
+      allNetmask = _useState8[0],
+      setAllNetmask = _useState8[1];
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    function loadDependencias() {
+      return _loadDependencias.apply(this, arguments);
+    }
+
+    function _loadDependencias() {
+      _loadDependencias = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var mikrotikResponse, domainResponse, typeHostResponse, responseNetmask;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get('/mikrotiks')["catch"]( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(error) {
+                    var errors, _yield$Swal$fire, accept;
+
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            errors = _objectSpread({}, error);
+
+                            if (!(errors.response.status == 401)) {
+                              _context.next = 9;
+                              break;
+                            }
+
+                            _context.next = 4;
+                            return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: "Sua sessão inspirou!",
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'Voltar ao Login!'
+                            });
+
+                          case 4:
+                            _yield$Swal$fire = _context.sent;
+                            accept = _yield$Swal$fire.value;
+                            window.location.href = "/login";
+                            _context.next = 11;
+                            break;
+
+                          case 9:
+                            console.log(errors);
+                            sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+                              title: "Ops...",
+                              text: error,
+                              icon: 'error',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'OK'
+                            });
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 2:
+                mikrotikResponse = _context2.sent;
+
+                //load de mikrotiks
+                if (mikrotikResponse.status == 200) {
+                  setAllMikrotiks(mikrotikResponse.data);
+                } //load de dominios
+
+
+                _context2.next = 6;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get('/domains');
+
+              case 6:
+                domainResponse = _context2.sent;
+
+                //console.log("Domains: ",domainResponse)
+                if (domainResponse.status == 200) {
+                  setAllDomains(domainResponse.data);
+                } //load de typeHost
+
+
+                _context2.next = 10;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get('/host-type');
+
+              case 10:
+                typeHostResponse = _context2.sent;
+
+                if (typeHostResponse.status == 200) {
+                  setAllTypeHost(typeHostResponse.data);
+                } //load de Netmasks
+
+
+                _context2.next = 14;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("/netmask");
+
+              case 14:
+                responseNetmask = _context2.sent;
+
+                if (responseNetmask.status === 200) {
+                  setAllNetmask(_toConsumableArray(responseNetmask.data));
+                }
+
+              case 16:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      return _loadDependencias.apply(this, arguments);
+    }
+
+    loadDependencias();
+  }, []);
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState10 = _slicedToArray(_useState9, 2),
-      gatway = _useState10[0],
-      setGatway = _useState10[1];
+      name = _useState10[0],
+      setName = _useState10[1];
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(24),
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState12 = _slicedToArray(_useState11, 2),
-      netmask = _useState12[0],
-      setNetmask = _useState12[1];
+      mikrotik = _useState12[0],
+      setMikrotik = _useState12[1];
 
-  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState14 = _slicedToArray(_useState13, 2),
-      dns1 = _useState14[0],
-      setDns1 = _useState14[1];
+      ip = _useState14[0],
+      setIp = _useState14[1];
 
-  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState16 = _slicedToArray(_useState15, 2),
-      dns2 = _useState16[0],
-      setDns2 = _useState16[1];
+      mac = _useState16[0],
+      setMac = _useState16[1];
 
-  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState18 = _slicedToArray(_useState17, 2),
-      type = _useState18[0],
-      setType = _useState18[1];
+      gatway = _useState18[0],
+      setGatway = _useState18[1];
 
-  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(24),
       _useState20 = _slicedToArray(_useState19, 2),
-      fixo = _useState20[0],
-      setFixo = _useState20[1];
+      netmask = _useState20[0],
+      setNetmask = _useState20[1];
 
-  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState22 = _slicedToArray(_useState21, 2),
-      domain = _useState22[0],
-      setDomain = _useState22[1];
+      dns1 = _useState22[0],
+      setDns1 = _useState22[1];
 
-  var _useState23 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState23 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState24 = _slicedToArray(_useState23, 2),
-      nivel = _useState24[0],
-      setNivel = _useState24[1];
+      dns2 = _useState24[0],
+      setDns2 = _useState24[1];
 
-  var _useState25 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+  var _useState25 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState26 = _slicedToArray(_useState25, 2),
-      skype = _useState26[0],
-      setSkype = _useState26[1];
+      type = _useState26[0],
+      setType = _useState26[1];
 
-  var _useState27 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+  var _useState27 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState28 = _slicedToArray(_useState27, 2),
-      lowPort = _useState28[0],
-      setLowPort = _useState28[1];
+      fixo = _useState28[0],
+      setFixo = _useState28[1];
 
-  var _useState29 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+  var _useState29 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState30 = _slicedToArray(_useState29, 2),
-      highPort = _useState30[0],
-      setHighPort = _useState30[1];
+      domain = _useState30[0],
+      setDomain = _useState30[1];
 
-  var _useState31 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+  var _useState31 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState32 = _slicedToArray(_useState31, 2),
-      active = _useState32[0],
-      setActive = _useState32[1];
+      nivel = _useState32[0],
+      setNivel = _useState32[1];
+
+  var _useState33 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(true),
+      _useState34 = _slicedToArray(_useState33, 2),
+      skype = _useState34[0],
+      setSkype = _useState34[1];
+
+  var _useState35 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(true),
+      _useState36 = _slicedToArray(_useState35, 2),
+      lowPort = _useState36[0],
+      setLowPort = _useState36[1];
+
+  var _useState37 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(true),
+      _useState38 = _slicedToArray(_useState37, 2),
+      highPort = _useState38[0],
+      setHighPort = _useState38[1];
+
+  var _useState39 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(true),
+      _useState40 = _slicedToArray(_useState39, 2),
+      active = _useState40[0],
+      setActive = _useState40[1];
 
   function invertCheked(chkname) {
     if (chkname === "skype") {
@@ -71962,15 +72133,15 @@ function RegHost() {
     }
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     className: "form-cad-host row",
     id: "form-host"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group name-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-name-host",
     className: "text-dark"
-  }, "Nome do Host"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Nome do Host"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-name-host",
@@ -71978,12 +72149,12 @@ function RegHost() {
     onChange: function onChange(e) {
       setName(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group mikrotik-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-mikrotik-host",
     className: "text-dark"
-  }, "Mikrotik"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Mikrotik"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "input-mikrotik-host",
@@ -71991,12 +72162,17 @@ function RegHost() {
     onChange: function onChange(e) {
       setMikrotik(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Selecione uma mikrotik..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Selecione uma mikrotik..."), allMikrotiks.map(function (mk) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+      key: mk.id,
+      value: mk.id
+    }, mk.name);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group ip-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-ip-host",
     className: "text-dark"
-  }, "IP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "IP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-ip-host",
@@ -72004,12 +72180,12 @@ function RegHost() {
     onChange: function onChange(e) {
       setIp(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group mac-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-mac-host",
     className: "text-dark"
-  }, "MAC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "MAC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-mac-host",
@@ -72017,12 +72193,12 @@ function RegHost() {
     onChange: function onChange(e) {
       setMac(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group mac-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-mac-host",
     className: "text-dark"
-  }, "Gateway"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Gateway"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-mac-host",
@@ -72030,12 +72206,12 @@ function RegHost() {
     onChange: function onChange(e) {
       setGatway(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group netmask-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-mask-host",
     className: "text-dark"
-  }, "Mascara de rede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Mascara de rede"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "input-mask-host",
@@ -72043,14 +72219,17 @@ function RegHost() {
     onChange: function onChange(e) {
       setNetmask(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-    value: 24
-  }, "255.255.255.0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, allNetmask.map(function (mask) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+      key: mask.id,
+      value: mask.bits
+    }, mask.mask, "/", mask.bits);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group dns1-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-dns1-host",
     className: "text-dark"
-  }, "DNS 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "DNS 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-dns1-host",
@@ -72058,12 +72237,12 @@ function RegHost() {
     onChange: function onChange(e) {
       setDns1(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group dns2-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-dns2-host",
     className: "text-dark"
-  }, "DNS 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "DNS 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     id: "input-dns2-host",
@@ -72071,12 +72250,12 @@ function RegHost() {
     onChange: function onChange(e) {
       setDns2(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group type-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-type-host",
     className: "text-dark"
-  }, "Tipo do host"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Tipo do host"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "input-type-host",
@@ -72084,12 +72263,17 @@ function RegHost() {
     onChange: function onChange(e) {
       setType(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Selecione o tipo do host..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Selecione o tipo do host..."), allTypeHost.map(function (th) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+      key: th.id,
+      value: th.id
+    }, th.name);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group dominio-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-domain-host",
     className: "text-dark"
-  }, "Dom\xEDnio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Dom\xEDnio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "input-domain-host",
@@ -72097,12 +72281,17 @@ function RegHost() {
     onChange: function onChange(e) {
       setDomain(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Selecione um dom\xEDnio"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Selecione um dom\xEDnio"), allDomains.map(function (dmn) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+      key: dmn.id,
+      value: dmn.id
+    }, dmn.domain);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group nivel-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-nivel-host",
     className: "text-dark"
-  }, "Nivel de acesso"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "Nivel de acesso"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "input-nivel-host",
@@ -72110,12 +72299,12 @@ function RegHost() {
     onChange: function onChange(e) {
       setNivel(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Selecione um nivel..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", null, "Selecione um nivel..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group fixed-host col-12 col-md-6 col-lg-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-fixed-host",
     className: "text-dark"
-  }, "IP FIXO"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, "IP FIXO"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     type: "text",
     className: "form-control",
     id: "input-fixed-host",
@@ -72123,13 +72312,13 @@ function RegHost() {
     onChange: function onChange(e) {
       setFixo(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: false
-  }, "N\xC3O"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+  }, "N\xC3O"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: true
-  }, "SIM"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "SIM"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group skype col-6 col-md-2 ml-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     className: "form-check-input",
     type: "checkbox",
     id: "input-skype-host",
@@ -72137,12 +72326,12 @@ function RegHost() {
     onClick: function onClick() {
       invertCheked("skype");
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-skype-host",
     className: "text-dark"
-  }, "Skype")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Skype")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group lower-port col-6 col-md-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     className: "form-check-input",
     type: "checkbox",
     id: "input-lower-host",
@@ -72150,12 +72339,12 @@ function RegHost() {
     onClick: function onClick() {
       invertCheked("lowport");
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-lower-host",
     className: "text-dark"
-  }, "Portas Baixas")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Portas Baixas")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group high-port col-6 col-md-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     className: "form-check-input",
     type: "checkbox",
     id: "input-high-host",
@@ -72163,12 +72352,12 @@ function RegHost() {
     onClick: function onClick() {
       invertCheked("highport");
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-high-host",
     className: "text-dark"
-  }, "Portas Altas")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Portas Altas")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group active col-6 col-md-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     className: "form-check-input",
     type: "checkbox",
     id: "input-active-host",
@@ -72176,10 +72365,10 @@ function RegHost() {
     onClick: function onClick() {
       invertCheked("active");
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-active-host",
     className: "text-dark"
-  }, "Ativo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, "Ativo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-primary col-10 offset-1 col-md-8 offset-md-2 col-lg-4 offset-lg-8"
   }, "Cadastrar"));
@@ -72605,6 +72794,11 @@ function RegMikrotik() {
       allSubrede = _useState2[0],
       setAllSubrede = _useState2[1];
 
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      allNetmask = _useState4[0],
+      setAllNetmask = _useState4[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     function loadDependences() {
       return _loadDependences.apply(this, arguments);
@@ -72612,7 +72806,7 @@ function RegMikrotik() {
 
     function _loadDependences() {
       _loadDependences = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var response, allDns;
+        var response, allDns, responseNetmask;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -72744,6 +72938,17 @@ function RegMikrotik() {
                 }());
 
               case 6:
+                _context3.next = 8;
+                return _utils_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("/netmask");
+
+              case 8:
+                responseNetmask = _context3.sent;
+
+                if (responseNetmask.status === 200) {
+                  setAllNetmask(_toConsumableArray(responseNetmask.data));
+                }
+
+              case 10:
               case "end":
                 return _context3.stop();
             }
@@ -72756,55 +72961,55 @@ function RegMikrotik() {
     loadDependences();
   }, []);
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
-      _useState4 = _slicedToArray(_useState3, 2),
-      name = _useState4[0],
-      setName = _useState4[1];
-
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      subrede = _useState6[0],
-      setSubrede = _useState6[1];
+      name = _useState6[0],
+      setName = _useState6[1];
 
   var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState8 = _slicedToArray(_useState7, 2),
-      ipWan = _useState8[0],
-      setIpWan = _useState8[1];
+      subrede = _useState8[0],
+      setSubrede = _useState8[1];
 
   var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState10 = _slicedToArray(_useState9, 2),
-      ipLan = _useState10[0],
-      setIpLan = _useState10[1];
+      ipWan = _useState10[0],
+      setIpWan = _useState10[1];
 
   var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState12 = _slicedToArray(_useState11, 2),
-      gateway = _useState12[0],
-      setGateway = _useState12[1];
+      ipLan = _useState12[0],
+      setIpLan = _useState12[1];
 
-  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(24),
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState14 = _slicedToArray(_useState13, 2),
-      netmask = _useState14[0],
-      setNetmask = _useState14[1];
+      gateway = _useState14[0],
+      setGateway = _useState14[1];
 
-  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(24),
       _useState16 = _slicedToArray(_useState15, 2),
-      dns1 = _useState16[0],
-      setDns1 = _useState16[1];
+      netmask = _useState16[0],
+      setNetmask = _useState16[1];
 
   var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState18 = _slicedToArray(_useState17, 2),
-      dns2 = _useState18[0],
-      setDns2 = _useState18[1];
+      dns1 = _useState18[0],
+      setDns1 = _useState18[1];
 
-  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])("admin"),
+  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState20 = _slicedToArray(_useState19, 2),
-      username = _useState20[0],
-      setUsername = _useState20[1];
+      dns2 = _useState20[0],
+      setDns2 = _useState20[1];
 
-  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
+  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])("admin"),
       _useState22 = _slicedToArray(_useState21, 2),
-      password = _useState22[0],
-      setPassword = _useState22[1];
+      username = _useState22[0],
+      setUsername = _useState22[1];
+
+  var _useState23 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
+      _useState24 = _slicedToArray(_useState23, 2),
+      password = _useState24[0],
+      setPassword = _useState24[1];
 
   function registerNewMikrotik(_x3) {
     return _registerNewMikrotik.apply(this, arguments);
@@ -73049,9 +73254,12 @@ function RegMikrotik() {
     onChange: function onChange(e) {
       setNetmask(e.target.value);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
-    value: 24
-  }, "255.255.255.0"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  }, allNetmask.map(function (mask) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+      key: mask.id,
+      value: mask.bits
+    }, mask.mask, "/", mask.bits);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group dns1-mikrotik col-12 col-md-6 col-lg-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "input-dns1-mk",
@@ -73450,7 +73658,7 @@ function RegSubnet() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
       key: mask.id,
       value: mask.bits
-    }, mask.mask);
+    }, mask.mask, "/", mask.bits);
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group local-subnet col-12 col-md-6"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {

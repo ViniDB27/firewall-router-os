@@ -1,6 +1,87 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import api from '../utils/axios'
+import IsIp from '../utils/IsIp'
+
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 function RegHost() {
+
+    const [allMikrotiks, setAllMikrotiks] = useState([])
+    const [allDomains, setAllDomains] = useState([])
+    const [allTypeHost, setAllTypeHost] = useState([])
+    const [allNetmask, setAllNetmask] = useState([])
+
+    useEffect(()=>{
+        async function loadDependencias(){
+
+            const mikrotikResponse = await api.get('/mikrotiks')
+            .catch(async error=>{
+
+                let errors = { ... error}
+
+                if(errors.response.status == 401){
+
+                    const { value: accept } = await  Swal.fire({
+
+                        title: `Ops...`,
+                        text: "Sua sessão inspirou!",
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Voltar ao Login!'
+
+                    })
+
+                    window.location.href = "/login";
+
+                }else{
+
+                    console.log(errors)
+
+                    Swal.fire({
+
+                        title: `Ops...`,
+                        text: error,
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+
+                    })
+                }
+
+
+            })
+
+
+            //load de mikrotiks
+            if(mikrotikResponse.status == 200){
+                setAllMikrotiks(mikrotikResponse.data)
+            }
+
+            //load de dominios
+            const domainResponse = await api.get('/domains')
+            //console.log("Domains: ",domainResponse)
+            if(domainResponse.status == 200){
+                setAllDomains(domainResponse.data)
+            }
+
+
+            //load de typeHost
+            const typeHostResponse = await api.get('/host-type')
+            if(typeHostResponse.status == 200){
+                setAllTypeHost(typeHostResponse.data)
+            }
+
+            //load de Netmasks
+            const responseNetmask = await api.get("/netmask")
+            if(responseNetmask.status === 200){
+                setAllNetmask([... responseNetmask.data])
+            }
+
+        }
+
+        loadDependencias()
+
+    },[])
 
     const [name, setName] = useState("")
     const [mikrotik, setMikrotik] = useState("")
@@ -43,6 +124,9 @@ function RegHost() {
                 <label htmlFor="input-mikrotik-host" className="text-dark" >Mikrotik</label>
                 <select type="text" className="form-control" id="input-mikrotik-host" value={mikrotik} onChange={e=>{setMikrotik(e.target.value)}} >
                     <option >Selecione uma mikrotik...</option>
+                    {allMikrotiks.map(mk=>(
+                        <option key={mk.id} value={mk.id} >{mk.name}</option>
+                    ))}
                 </select>
             </div>
 
@@ -64,7 +148,9 @@ function RegHost() {
             <div className="form-group netmask-host col-12 col-md-6 col-lg-4">
                 <label htmlFor="input-mask-host" className="text-dark" >Mascara de rede</label>
                 <select type="text" className="form-control" id="input-mask-host" value={netmask} onChange={e=>{setNetmask(e.target.value)}} >
-                    <option value={24}>255.255.255.0</option>
+                    {allNetmask.map(mask=>(
+                        <option key={mask.id} value={mask.bits} >{mask.mask}/{mask.bits}</option>
+                    ))}
                 </select>
             </div>
 
@@ -82,6 +168,9 @@ function RegHost() {
                 <label htmlFor="input-type-host" className="text-dark" >Tipo do host</label>
                 <select type="text" className="form-control" id="input-type-host" value={type} onChange={e=>{setType(e.target.value)}} >
                     <option >Selecione o tipo do host...</option>
+                    {allTypeHost.map(th=>(
+                        <option key={th.id} value={th.id}>{th.name}</option>
+                    ))}
                 </select>
             </div>
 
@@ -89,6 +178,9 @@ function RegHost() {
                 <label htmlFor="input-domain-host" className="text-dark" >Domínio</label>
                 <select type="text" className="form-control" id="input-domain-host" value={domain} onChange={e=>{setDomain(e.target.value)}} >
                     <option >Selecione um domínio</option>
+                    {allDomains.map(dmn=>(
+                        <option key={dmn.id} value={dmn.id} >{dmn.domain}</option>
+                    ))}
                 </select>
             </div>
 

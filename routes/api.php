@@ -66,6 +66,10 @@ Route::group(['prefix' => '/v1','namespace'=>'App\Http\Controllers'], function (
             Route::delete('/{id}', 'HostController@destroy');
         });
 
+        Route::group(['prefix' => '/permissions'], function () {
+            Route::get('/', 'PermissonController@show');
+        });
+
         Route::group(['prefix' => '/host-type'], function () {
 
             Route::get('/', 'TypeHostController@show');

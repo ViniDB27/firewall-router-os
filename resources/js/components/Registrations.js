@@ -73,7 +73,7 @@ function Registrations() {
             </div>
 
             <div className="container container-forms mb-4">
-                    <h2><a onClick={()=>{showFormCad("cad-domain","icon-show-cad-domain")}}><i id="icon-show-cad-domain" className="material-icons" >keyboard_arrow_right</i>Cadastrar domínio</a><hr/></h2>
+                    <h2><a onClick={()=>{showFormCad("cad-domain","icon-show-cad-domain")}}><i id="icon-show-cad-domain" className="material-icons" >keyboard_arrow_right</i>Cadastrar Domínio</a><hr/></h2>
                     <div className="forms" id="cad-domain" hidden>{renderComponent('cad-domain',<RegDomain/>)}</div>
             </div>
 

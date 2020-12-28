@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 function TypeHost() {
+
+
+
+
+
     return (
         <table className="table table-sm table-hover table-striped table-responsive-sm">
              <thead>

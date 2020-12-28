@@ -9,6 +9,8 @@ class HostPerminssion extends Model
 {
     use HasFactory;
 
+    protected $table = 'hosts_permissions';
+
     protected $fillable = [
         'id',
         'name',

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from '../utils/axios'
 import IsIp from '../utils/IsIp'
+import IsMac from '../utils/IsMac'
 
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
@@ -10,6 +11,7 @@ function RegHost() {
     const [allDomains, setAllDomains] = useState([])
     const [allTypeHost, setAllTypeHost] = useState([])
     const [allNetmask, setAllNetmask] = useState([])
+    const [allPermissions, setAllPermissions] = useState([])
 
     useEffect(()=>{
         async function loadDependencias(){
@@ -77,6 +79,12 @@ function RegHost() {
                 setAllNetmask([... responseNetmask.data])
             }
 
+            //load de permissions
+            const responsePermissions = await api.get("/permissions")
+            if(responsePermissions.status === 200){
+                setAllPermissions([... responsePermissions.data])
+            }
+
         }
 
         loadDependencias()
@@ -92,9 +100,9 @@ function RegHost() {
     const [dns1, setDns1] = useState("")
     const [dns2, setDns2] = useState("")
     const [type, setType] = useState("")
-    const [fixo, setFixo] = useState(false)
     const [domain, setDomain] = useState("")
     const [nivel, setNivel] = useState("")
+    const [fixo, setFixo] = useState(false)
     const [skype, setSkype] = useState(true)
     const [lowPort, setLowPort] = useState(true)
     const [highPort, setHighPort] = useState(true)
@@ -112,8 +120,130 @@ function RegHost() {
         }
     }
 
+
+    async function registerNewHost(event){
+
+        event.preventDefault()
+
+        if(name != "" && mikrotik != "" && ip != "" && mac != "" && gatway != "" && netmask != "" && dns1 != "" && dns2 != "" && type != "" && domain != "" && nivel != "" ){
+
+            if(IsIp(ip)){
+
+                if(IsIp(gatway)){
+
+                    if(IsIp(dns1)){
+
+                        if(IsIp(dns2)){
+
+                            if(IsMac(mac)){
+
+                                //request
+                                await api.post('/hosts',{
+
+                                    name:name,
+                                    mikrotik_id:mikrotik,
+                                    mac:mac,
+                                    ip:ip,
+                                    gateway:gatway,
+                                    netmask_bits:netmask,
+                                    dns1:dns1,
+                                    dns2:dns2,
+                                    domain_id:domain,
+                                    host_type_id:type,
+                                    host_permission_id:nivel,
+                                    skype:skype,
+                                    lower_port:lowPort,
+                                    high_port:highPort,
+                                    fixed:fixo,
+                                    active:active
+                                })
+                                .then(response=>{
+                                    console.log(response)
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Show!',
+                                        text: response.data.message,
+                                    })
+                                })
+                                .catch(error=>{
+                                    let errors = { ... error}
+
+                                    if(errors.response.status == 422){
+
+
+
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text:errors.response.data.message + ' ' + JSON.stringify(errors.response.data.errors),
+                                        })
+
+                                    }else{
+
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text:error,
+                                        })
+
+                                    }
+                                })
+
+                            }else{
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Oops...',
+                                    text: "O MAC informado não é valido",
+                                })
+                            }
+
+
+
+                        }else{
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Oops...',
+                                text: "O DNS 2 informado não é valido",
+                            })
+                        }
+
+                    }else{
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            text: "O DNS 1 informado não é valido",
+                        })
+                    }
+
+                }else{
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Oops...',
+                        text: "O Gateway informado não é valido",
+                    })
+                }
+
+            }else{
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: "O IP informado não é valido",
+                })
+            }
+
+        }else{
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: "Não podemos cadastrar o Host se todos os campos não estiverem preenchidos!",
+            })
+        }
+
+    }
+
+
     return (
-        <form className="form-cad-host row" id="form-host"  >
+        <form className="form-cad-host row" id="form-host" onSubmit={e=>registerNewHost(e)} >
 
             <div className="form-group name-host col-12 col-md-6 col-lg-4">
                 <label htmlFor="input-name-host" className="text-dark" >Nome do Host</label>
@@ -188,6 +318,9 @@ function RegHost() {
                 <label htmlFor="input-nivel-host" className="text-dark" >Nivel de acesso</label>
                 <select type="text" className="form-control" id="input-nivel-host" value={nivel} onChange={e=>{setNivel(e.target.value)}} >
                     <option >Selecione um nivel...</option>
+                    {allPermissions.map(prm=>(
+                        <option key={prm.id} value={prm.id} >{prm.name}</option>
+                    ))}
                 </select>
             </div>
 

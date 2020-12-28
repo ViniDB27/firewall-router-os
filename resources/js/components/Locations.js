@@ -59,6 +59,65 @@ function Locations(){
     },[]);
 
 
+    async function deletarLocais(event, id, name){
+
+        event.preventDefault()
+
+        const { value: accept } = await Swal.fire({
+
+            title: `Você tem certeza que deseja exluir o local ${name}?`,
+            text: "Você não poderá reverter essa ação mais tarde!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: "Cancelar",
+            confirmButtonText: 'Excluir'
+
+        })
+
+        if(accept){
+
+            await api.delete(`/locations/${id}`)
+            .then(async response=>{
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Show!',
+                    text: response.data.message,
+                })
+
+                location.reload()
+
+            })
+            .catch(error=>{
+                let errors = { ... error}
+
+                if(errors.response.status == 422){
+
+
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text:errors.response.data.message + ' ' + JSON.stringify(errors.response.data.errors),
+                    })
+
+                }else{
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text:error,
+                    })
+
+                }
+            })
+
+        }
+
+
+    }
+
 
     return (
 
@@ -98,7 +157,7 @@ function Locations(){
                             <td>{local.uf}</td>
                             <td className="d-flex" >
                                 <a><i className="material-icons text-body icons-table mx-1" title="Editar" >create</i></a>
-                                <a><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
+                                <a onClick={e=>deletarLocais(e, local.id, local.name)} ><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
                             </td>
                         </tr>
                     ))

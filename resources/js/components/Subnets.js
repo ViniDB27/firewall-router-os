@@ -57,6 +57,64 @@ function Subnets() {
         loadSubnets()
     },[]);
 
+    async function deletarSubrede(event, id, name){
+
+        event.preventDefault()
+
+        const { value: accept } = await Swal.fire({
+
+            title: `Você tem certeza que deseja exluir a Sub-rede ${name}?`,
+            text: "Você não poderá reverter essa ação mais tarde!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: "Cancelar",
+            confirmButtonText: 'Excluir'
+
+        })
+
+        if(accept){
+
+            await api.delete(`/subnets/${id}`)
+            .then(async response=>{
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Show!',
+                    text: response.data.message,
+                })
+
+                location.reload()
+
+            })
+            .catch(error=>{
+                let errors = { ... error}
+
+                if(errors.response.status == 422){
+
+
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text:errors.response.data.message + ' ' + JSON.stringify(errors.response.data.errors),
+                    })
+
+                }else{
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text:error,
+                    })
+
+                }
+            })
+
+        }
+
+
+    }
 
     return (
         <table className="table table-sm table-hover table-striped table-responsive-sm">
@@ -91,7 +149,7 @@ function Subnets() {
                             <td>{(sub.subnet.active)?"SIM":"NÃO"}</td>
                             <td className="d-flex" >
                                 <a><i className="material-icons text-body icons-table mx-1" title="Editar" >create</i></a>
-                                <a><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
+                                <a onClick={e=>deletarSubrede(e, sub.subnet.id, sub.subnet.name)} ><i className="material-icons text-body icons-table mx-1" title="Excluir" >delete</i></a>
                             </td>
                         </tr>
                     ))

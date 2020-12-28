@@ -57,6 +57,65 @@ function Hosts(){
 
     },[])
 
+    async function deletarHost(event, id, name){
+
+        event.preventDefault()
+
+        const { value: accept } = await Swal.fire({
+
+            title: `Você tem certeza que deseja exluir o host ${name}?`,
+            text: "Você não poderá reverter essa ação mais tarde!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: "Cancelar",
+            confirmButtonText: 'Excluir'
+
+        })
+
+        if(accept){
+
+            await api.delete(`/hosts/${id}`)
+            .then(async response=>{
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Show!',
+                    text: response.data.message,
+                })
+
+                location.reload()
+
+            })
+            .catch(error=>{
+                let errors = { ... error}
+
+                if(errors.response.status == 422){
+
+
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text:errors.response.data.message + ' ' + JSON.stringify(errors.response.data.errors),
+                    })
+
+                }else{
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text:error,
+                    })
+
+                }
+            })
+
+        }
+
+
+    }
+
     return (
         <table className="table table-sm table-hover table-striped table-responsive-sm">
                 <thead>
@@ -81,7 +140,7 @@ function Hosts(){
                 </thead>
                 <tbody>
                     {allHost.map(host=>(
-                        <tr>
+                        <tr key={host.id} >
                             <td>
                                 <div className="form-check">
                                     <input className="form-check-input position-static" id="select-all" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."/>
@@ -99,7 +158,7 @@ function Hosts(){
                             <td scope="col">{host.active ? "SIM" : "NÃO"}</td>
                             <td className="d-flex" scope="col">
                                 <a className="mx-1" ><i className="material-icons text-body icons-table" title="Editar" >create</i></a>
-                                <a className="mx-1" ><i className="material-icons text-body icons-table" title="Excluir" >delete</i></a>
+                                <a onClick={e=>deletarHost(e, host.id, host.name)} className="mx-1" ><i className="material-icons text-body icons-table" title="Excluir" >delete</i></a>
                                 <a className="mx-1" ><i className="material-icons text-body icons-table" title="Informações do Dispositivo" >computer</i></a>
                             </td>
                         </tr>

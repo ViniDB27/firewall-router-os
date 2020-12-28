@@ -58,7 +58,64 @@ function Mikrotiks() {
 
     },[])
 
+    async function deletarMikrotik(event, id, name){
 
+        event.preventDefault()
+
+        const { value: accept } = await Swal.fire({
+
+            title: `Você tem certeza que deseja exluir o Mikrotik ${name}?`,
+            text: "Você não poderá reverter essa ação mais tarde!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: "Cancelar",
+            confirmButtonText: 'Excluir'
+
+        })
+
+        if(accept){
+
+            await api.delete(`/mikrotiks/${id}`)
+            .then(async response=>{
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Show!',
+                    text: response.data.message,
+                })
+
+                location.reload()
+
+            })
+            .catch(error=>{
+                let errors = { ... error}
+
+                if(errors.response.status == 422){
+
+
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text:errors.response.data.message + ' ' + JSON.stringify(errors.response.data.errors),
+                    })
+
+                }else{
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text:error,
+                    })
+
+                }
+            })
+
+        }
+
+
+    }
 
     return (
         <table className="table table-sm table-hover table-striped table-responsive-sm">
@@ -73,7 +130,6 @@ function Mikrotiks() {
                 <th scope="col">IP WAN</th>
                 <th scope="col">IP LAN</th>
                 <th scope="col">Gateway</th>
-                <th scope="col">NetMask</th>
                 <th scope="col">DNS 1</th>
                 <th scope="col">DNS 2</th>
                 <th scope="col">Subrede</th>
@@ -93,13 +149,12 @@ function Mikrotiks() {
                         <td scope="col">{mk.ip_wan}</td>
                         <td scope="col">{mk.ip_lan}</td>
                         <td scope="col">{mk.gateway}</td>
-                        <td scope="col">{mk.netmask.mask}</td>
                         <td scope="col">{mk.dns1}</td>
                         <td scope="col">{mk.dns2}</td>
                         <td scope="col">{mk.subnet.name}</td>
                         <td className="d-flex" >
                             <a className="mx-1" ><i className="material-icons text-body icons-table" title="Editar" >create</i></a>
-                            <a className="mx-1" ><i className="material-icons text-body icons-table" title="Excluir" >delete</i></a>
+                            <a onClick={e=>deletarMikrotik(e, mk.id, mk.name)} className="mx-1" ><i className="material-icons text-body icons-table" title="Excluir" >delete</i></a>
                             <a className="mx-1" ><i className="material-icons text-body icons-table" title="Restaurar" >settings_backup_restore</i></a>
                             <a className="mx-1" ><i className="material-icons text-body icons-table" title="Atualizar" >autorenew</i></a>
                         </td>
